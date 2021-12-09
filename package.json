@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scripts": {
+      "start-api": "cd api && npm start",
+      "start-client": "cd client && npm start",
+      "start-dev": "concurrently \"npm:start-api\" \"npm:start-client\" ",
+      "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071",
+      "start": " npm run start-dev && npm run swa-up"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/dfberry/github-who/issues"
   },
-  "homepage": "https://github.com/dfberry/github-who#readme"
+  "homepage": "https://github.com/dfberry/github-who#readme",
+  "dependencies": {
+    "@azure/static-web-apps-cli": "^0.8.2"
+  }
 }
