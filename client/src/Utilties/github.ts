@@ -2,13 +2,14 @@ import { Octokit } from "octokit";
 
 const clientId: string = process.env["REACT_APP_GITHUB_OAUTH_CLIENT_ID"] || "";
 const clientSecret: string = process.env["REACT_APP_GITHUB_OAUTH_CLIENT_SECRET"] || "";
+const redirectUri = "http://localhost:3000/auth-redirect";
 
 export const getCodeFromQueryString = (): string=>{
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
       return code;
     } else {
-        throw new Error("can't get GitHub Oauth code");
+        return "";
     }
 }
 export const getTokenFromQueryString = ():string =>{
@@ -16,24 +17,25 @@ export const getTokenFromQueryString = ():string =>{
     if (token) {
       return token;
     } else {
-        throw new Error("can't get GitHub Oauth token");
+        return "";
     }
 }
 export const requestTokenFromGitHub = async(code:string ):Promise<any>=>{
+    try{
     // Azure Function API
-    const response = await fetch("api/github/oauth/token", {
+    const response:any = await fetch(`/github/oauth/access_token?client_id=${encodeURIComponent(clientId)}&client_secret=${encodeURIComponent(clientSecret)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(encodeURIComponent(redirectUri))}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
-        },
-        body: JSON.stringify({ 
-            client_id: clientId,
-            client_secret: clientSecret,
-            code, 
-            redirect_uri:"http://localhost:3000/auth-redirect" }),
+        }
       });
       const { token } = await response.json();
       return token;
+    }catch(err){
+        console.log(err);
+        throw(err);
+    }
+
 }
 export const getGitHubToken = async():Promise<string>=>{
 
