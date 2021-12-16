@@ -1,20 +1,15 @@
 import React from 'react';
 import {useLocation} from 'react-router-dom';
 import TableProperties from './Components/TableProperties';
-
+import { IUser } from './Redux/index';
 type Props = {
-    user?: React.ReactNode,
-    token?: React.ReactNode,
-    state?: React.ReactNode
+    user: IUser
 };
-const GitHubProfile: React.FC<Props> = (props) => {
-
-    // TBD: switch to getting state from redux
-    const { state } = useLocation();
+const GitHubProfile: React.FC<Props> = ({user}) => {
 
     return (
         <div className="GitHubProfile">
-            <TableProperties data={state.user}/>
+            <TableProperties data={user.user}/>
         </div>
     )
 }

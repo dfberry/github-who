@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import CSS from 'csstype';
 
 type KeyValuePair = {
     [name: string]: any
@@ -14,10 +15,13 @@ type Props = {
 
 const TableProperties: React.FC<Props> = ({ data={}, style = {} }) => {
 
+    const leftAlignedColumn: CSS.Properties = {
+        justifyContent:'left'
+      };
+
     return (
         <>
-            <Container className="Table">
-                <Table>
+                <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -36,9 +40,10 @@ const TableProperties: React.FC<Props> = ({ data={}, style = {} }) => {
                         const val: any = data[name];
 
                         return (
-                        <tr>
+                        <tr 
+                        key={i.toString()}>
                             <td>{i}</td>
-                            <td>{key}</td>
+                            <td style={leftAlignedColumn}>{key}</td>
                             <td>{val}</td>
                         </tr>
                         )
@@ -47,7 +52,6 @@ const TableProperties: React.FC<Props> = ({ data={}, style = {} }) => {
                     }
                     </tbody>
                 </Table>
-            </Container>
         </>
     )
 }

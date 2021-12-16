@@ -1,4 +1,4 @@
-import { Octokit } from "octokit";
+import { log } from './log';
 
 declare var process : {
     env: {
@@ -20,6 +20,7 @@ export const getUriForOauthLogin = () =>{
 export const getCodeFromQueryString = (): string => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
+        log("verbose", code);
         return code;
     } else {
         return "";
@@ -40,11 +41,36 @@ export const requestTokenFromApi = async (code: string): Promise<any> => {
             }
         });
         const { token, user } = await response.json();
-        console.log(token);
-        console.log(user);
+        log("verbose", token);
+        log("verbose", user);
         return { token, user };
-    } catch (err) {
-        console.log(err);
+    } catch (err:any) {
+        log("error", err);
+        throw (err);
+    }
+
+}
+export const requestUserReposFromApi = async (token: string): Promise<any> => {
+    try {
+
+        if(!token){
+            throw new Error("Required parameters are missing");
+        }
+        
+        // Azure Function API
+        const response: any = await fetch(`http://localhost:7071/api/github/user/repositories`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        const { status, repos } = await response.json();
+        log("verbose", status);
+        log("verbose", repos);
+        return { status, repos };
+    } catch (err:any) {
+        log("error", err);
         throw (err);
     }
 
@@ -62,11 +88,13 @@ export const requestToken = async (): Promise<any> => {
     // have code, need to get token
     try {
         if (code) {
+            log("verbose", code);
             return await requestTokenFromApi(code);
         } else {
             throw new Error('Client: Code not found');
         }
-    } catch (err) {
-        console.log("can't request token");
+    } catch (err:any ) {
+        log("error", err);
+        throw err;
     }
 }

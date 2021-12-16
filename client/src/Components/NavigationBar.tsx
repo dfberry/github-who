@@ -18,6 +18,8 @@ const NavigationBar: React.FC<Props> = ({ title }) => {
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/Login">Login</Nav.Link>
+                            <Nav.Link href="/Profile">Profile</Nav.Link>
+                            <Nav.Link href="/Repos">Repos</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -1,15 +1,33 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+import React, { useState, useEffect } from 'react';
+import { useEffectAsync } from './Utilties/reactHelpers';
+import { requestUserReposFromApi } from './Utilties/github';
+import { log } from './Utilties/log';
+
 type Props = {
-    children?: React.ReactNode
+    token?: React.ReactNode
 };
-const GitHubRepos: React.FC<Props> = ({ children }) => {
+const GitHubRepos: React.FC<Props> = ({ token }) => {
+
+    const [repos, setRepos] = useState<object>({});
+    const [error, setError] = useState<object>({});
+
+    useEffectAsync(async () => {
+        await getRepos();
+    }, []);
+
+    const getRepos = async () => {
+
+        requestUserReposFromApi((token as string) ).then((result:any) => {
+            log("verbose", result?.repos);
+
+        }).catch((err: any) => {
+            log('error', err)
+        });
+    }
+
     return (
         <div className="GitHubRepos">
-            <Container>
-                GitHub Repos
-            </Container>
+            GitHub Repos
         </div>
     )
 }
