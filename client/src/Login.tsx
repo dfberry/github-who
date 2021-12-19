@@ -8,11 +8,8 @@ type Props = {
 };
 const Login: React.FC<Props> = ({ children }) => {
 
-    const { state } = useLocation();
-
     return (
         <div className="Login">
-            <div>{ state && state?.error }</div>
             <AppButton name="GitHub App Login" url={getUriForOauthLogin()}></AppButton>
         </div>
         
