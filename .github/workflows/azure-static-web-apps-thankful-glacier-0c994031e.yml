@@ -34,9 +34,9 @@ jobs:
           api_build_command: "npm run build"
           ###### End of Repository/Build Configurations ######
         env: 
-          REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
-          REACT_APP_GITHUB_REDIRECT_URI: ${{REACT_APP_GITHUB_REDIRECT_URI}}
-          REACT_APP_GITHUB_STATE: ${{REACT_APP_GITHUB_STATE}}
+          REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
+          REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI}}
+          REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
