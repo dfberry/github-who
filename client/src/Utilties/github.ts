@@ -1,5 +1,3 @@
-import { Octokit } from "octokit";
-
 declare var process : {
     env: {
         REACT_APP_GITHUB_OAUTH_CLIENT_ID: string,
