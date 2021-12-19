@@ -4,12 +4,12 @@
 2. OauthTokenRedirect - second step - returned token
 
 */
-import React, { useState } from 'react';
+import React from 'react';
 import { requestToken } from "./Utilties/github";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffectAsync } from './Utilties/reactHelpers';
 import { Loading } from './Components/Loading';
-import { useAppSelector, useAppDispatch } from './app/hooks';
+import { useAppDispatch } from './app/hooks';
 import {
     add
   } from './features/user/userSlice';
@@ -19,11 +19,6 @@ type Props = {
     children?: React.ReactNode
 };
 const AuthRedirect: React.FC<Props> = ({ children }) => {
-
-    const [status, setStatus] = useState<boolean>(false);
-    const [token, setToken] = useState<object>({});
-    const [user, setUser] = useState<object>({ name: "" });
-    const [error, setError] = useState<string>("");
     
     const dispatch = useAppDispatch();
     const navigate = useNavigate();

@@ -1,14 +1,8 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import {
     Routes,
     Route,
-    BrowserRouter as Router,
-    Link,
-    useNavigate,
-    useLocation,
-    Navigate,
-    Outlet
+    BrowserRouter as Router
 } from "react-router-dom";
 import Login from './Login';
 import Home from './Home';

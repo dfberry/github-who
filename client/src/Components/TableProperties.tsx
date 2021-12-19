@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 
-type KeyValuePair = {
-    [name: string]: any
-}
 type ObjectPair = { [index: string]: any };
 
 type Props = {
@@ -22,16 +19,6 @@ Column 3: property value (not nested)
 */
 const TableProperties: React.FC<Props> = ({ name = "", data = {}, style = {} }) => {
 
-    const columnNames = () => {
-
-        const tempList = Object.keys(data).map(columnName => columnName);
-
-        return tempList.map((columnName, i) => {
-            <th key={i}>columnName</th>
-        })
-
-    }
-
     const rowData = () => {
 
 
@@ -48,8 +35,7 @@ const TableProperties: React.FC<Props> = ({ name = "", data = {}, style = {} }) 
                 </tr>
             )
 
-        })
-        )
+        }))
     }
 
     return (

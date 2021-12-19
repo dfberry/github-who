@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import TableProperties from "../../Components/TableProperties";
 import { useAppSelector } from '../../app/hooks';
 import {
