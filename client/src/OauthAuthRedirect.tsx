@@ -9,7 +9,10 @@ import { requestToken } from "./Utilties/github";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useEffectAsync } from './Utilties/reactHelpers';
 import { Loading } from './Components/Loading';
-
+import { useAppSelector, useAppDispatch } from './app/hooks';
+import {
+    add
+  } from './features/user/userSlice';
 
 
 type Props = {
@@ -22,6 +25,7 @@ const AuthRedirect: React.FC<Props> = ({ children }) => {
     const [user, setUser] = useState<object>({ name: "" });
     const [error, setError] = useState<string>("");
     
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     useEffectAsync(async () => {
@@ -32,15 +36,21 @@ const AuthRedirect: React.FC<Props> = ({ children }) => {
         requestToken()
             .then((result) => {               
                 if (result && result.user && result.token) {
-                    navigate('/github-profile', { state: {user: result.user, token: result.token} });
+                    dispatch(add({user:result.user, token:result.token, status: 'authenticated', error: undefined}));
+                    navigate('/github-profile');
                 } else if (!result.token) {
-                    navigate('/login', { state: {error: "Token not returned" }});
+                    dispatch(add({user: undefined, token: undefined, status: 'failed', error: "Authentication: token not found"}));
+                    navigate('/login');
+                } else if (!result.user){
+                    dispatch(add({user: undefined, token: undefined, status: 'failed', error: "Authentication: user not found"}));
+                    navigate('/login');
                 } else {
-                    //(!result.user){
-                    navigate('/login', { state: {error: "User not returned" }});
+                    dispatch(add({user: undefined, token: undefined, status: 'failed', error: "Authentication: unknown error"}));
+                    navigate('/login');                 
                 }
             }).catch((err) => {
-                navigate('/login', { state: {error: err.message }});
+                dispatch(add({user: undefined, token: undefined, status: 'failed', error: `Authentication: catch ${JSON.stringify(err)}`}));
+                navigate('/login');
             });
     }
 

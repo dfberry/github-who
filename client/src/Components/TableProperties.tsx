@@ -5,14 +5,52 @@ import Table from 'react-bootstrap/Table';
 type KeyValuePair = {
     [name: string]: any
 }
-type ObjectPair = {[index: string]:any};
+type ObjectPair = { [index: string]: any };
 
 type Props = {
+    name: string,
     data: ObjectPair,
     style?: React.CSSProperties
 };
+/*
 
-const TableProperties: React.FC<Props> = ({ data={}, style = {} }) => {
+3 column table:
+Column 1: row num
+Column 2: property name
+Column 3: property value (not nested)
+
+*/
+const TableProperties: React.FC<Props> = ({ name = "", data = {}, style = {} }) => {
+
+    const columnNames = () => {
+
+        const tempList = Object.keys(data).map(columnName => columnName);
+
+        return tempList.map((columnName, i) => {
+            <th key={i}>columnName</th>
+        })
+
+    }
+
+    const rowData = () => {
+
+
+        return (Object.keys(data).map((key: string, i: number) => {
+
+            const name: string = key;
+            const val: string = JSON.stringify(data[name]);
+
+            return (
+                <tr key={i}>
+                    <td>{i}</td>
+                    <td>{name}</td>
+                    <td>{val}</td>
+                </tr>
+            )
+
+        })
+        )
+    }
 
     return (
         <>
@@ -21,30 +59,12 @@ const TableProperties: React.FC<Props> = ({ data={}, style = {} }) => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            {
-                                Object.keys(data).map(columnName => {
-                                    <th>columnName</th>
-                                })
-                            }
+                            <th>{`Property`}</th>
+                            <th>{`Value`}</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                    Object.keys(data).map((key: string, i: number) => {
-
-                        const name: any = key;                    
-                        const val: any = data[name];
-
-                        return (
-                        <tr>
-                            <td>{i}</td>
-                            <td>{key}</td>
-                            <td>{val}</td>
-                        </tr>
-                        )
-
-                    })
-                    }
+                        {rowData()}
                     </tbody>
                 </Table>
             </Container>

@@ -14,7 +14,7 @@ import Login from './Login';
 import Home from './Home';
 import NavigationBar from './Components/NavigationBar';
 import AuthRedirect from './OauthAuthRedirect';
-import GitHubProfile from './GitHubProfile';
+import { User } from './features/user/User';
 
 type Props = {
     children?: React.ReactNode
@@ -28,7 +28,7 @@ const AppRoutes: React.FC<Props> = ({ children }) => {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/auth-redirect" element={<AuthRedirect />} />
-                <Route path="/github-profile" element={<GitHubProfile />} />
+                <Route path="/github-profile" element={<User />} />
             </Routes>
         </Router>)
 }
