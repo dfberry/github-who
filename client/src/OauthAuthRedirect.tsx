@@ -36,7 +36,7 @@ const AuthRedirect: React.FC<Props> = ({ children }) => {
     });
 
     const getToken = async () => {
-        requestToken(environment.gitHubRedirectUri || "")
+        requestToken(environment)
             .then((result) => {               
                 if (result && result.user && result.token) {
                     dispatch(add({user:result.user, token:result.token, status: 'authenticated', error: undefined}));

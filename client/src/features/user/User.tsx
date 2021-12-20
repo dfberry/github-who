@@ -3,23 +3,23 @@ import { useAppSelector } from '../../app/hooks';
 import {
   selectUser,
 } from './userSlice';
-import { isProduction, log } from '../../Utilties/debug';
+import {
+  selectEnvironment,
+} from '../../features/environment/environmentSlice';
 
 export function User() {
 
   const user = useAppSelector(selectUser);
+  const environment = useAppSelector(selectEnvironment);
 
   const getUserProfile = ():object => user.user || {};
   const getUserToken = ():object => user.token || {};
-
-  const isProductionResult = isProduction().toString();
-  log(isProductionResult);
 
   return (
     <div className="GitHubProfile">
       <h4>GitHub Profile</h4>
         <TableProperties name="GitHub Profile" data={getUserProfile()}/>
-        { !isProduction() && 
+        { !environment.isProduction && 
           <TableProperties name="GitHub Auth Token" data={getUserToken()}/>
         }
     </div>

@@ -16,7 +16,7 @@ const Login: React.FC<Props> = ({ children }) => {
 
     return (
         <div className="Login">
-            <AppButton name="GitHub App Login" url={getUriForOauthLogin(environment?.gitHubRedirectUri || "")}></AppButton>
+            <AppButton name="GitHub App Login" url={getUriForOauthLogin(environment)}></AppButton>
         </div>
         
     )

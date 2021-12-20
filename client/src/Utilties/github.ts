@@ -1,36 +1,36 @@
-declare var process : {
-    env: {
-        REACT_APP_GITHUB_OAUTH_CLIENT_ID: string,
-        REACT_APP_GITHUB_OAUTH_CLIENT_SECRET: string,
-        REACT_APP_GITHUB_REDIRECT_URI:string,
-        REACT_APP_GITHUB_STATE: string
-    }
-  }
+import { Environment } from '../features/environment/environmentModel';
 
-const clientId: string = process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID;
-const state = process.env.REACT_APP_GITHUB_STATE;
+export const getUriForOauthLogin = (environment: Environment) =>{
+    const uri =  `https://github.com/login/oauth/authorize?client_id=${environment.gitHubClientId}&redirect_uri=${environment.gitHubRedirectUri}&state=${environment.gitHubState}&allow_signup=true`;
 
-export const getUriForOauthLogin = (redirectUri:string) =>{
-    return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&allow_signup=true`    
+    console.log(uri);
+
+    return uri;
+    
 }
 
 export const getCodeFromQueryString = (): string => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
+        console.log(code);
         return code;
     } else {
         return "";
     }
 }
-export const requestTokenFromApi = async (code: string, redirectUri: string): Promise<any> => {
+export const requestTokenFromApi = async (code: string, environment: Environment): Promise<any> => {
     try {
 
-        if(!clientId || !code || !state || !redirectUri){
+        if(!code){
             throw new Error("Required parameters are missing");
         }
 
+        const uri = `/api/github/oauth/access_token?client_id=${encodeURIComponent(environment.gitHubClientId)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(encodeURIComponent(environment.gitHubRedirectUri))}`;
+
+        console.log(uri);
+
         // Azure Function API
-        const response: any = await fetch(`/api/github/oauth/access_token?client_id=${encodeURIComponent(clientId)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(encodeURIComponent(redirectUri))}`, {
+        const response: any = await fetch(uri, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -52,18 +52,19 @@ export const requestTokenFromApi = async (code: string, redirectUri: string): Pr
     Exchange code for token from our own API. 
 
 */
-export const requestToken = async (redirectUri: string): Promise<any> => {
+export const requestToken = async (environment: Environment): Promise<any> => {
 
     const code: string = getCodeFromQueryString();
 
     // have code, need to get token
     try {
         if (code) {
-            return await requestTokenFromApi(code, redirectUri);
+            return await requestTokenFromApi(code, environment);
         } else {
             throw new Error('Client: Code not found');
         }
     } catch (err) {
         console.log("can't request token");
+        console.log(err);
     }
 }

@@ -1,15 +1,6 @@
-export const isProduction = () =>{
-    const _isProduction =  (process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod')))
-        ? true
-        : false;
-
-    return _isProduction;
-}
-
 export const log = (x?:string) =>{
 
-    const debug = !isProduction();
-    if(!debug) return;
+    if(!(process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod')))) return;
 
     if(!x) x = "Development environment";
 
