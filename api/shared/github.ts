@@ -30,7 +30,6 @@ export const requestUser = async (token: string): Promise<any> => {
 
 }
 export const requestToken = async (code: string): Promise<any> => {
-  try {
 
     const environment = getEnvironment(); 
 
@@ -41,8 +40,6 @@ export const requestToken = async (code: string): Promise<any> => {
       "code": code
     };
 
-    //trace(`GitHub Request Token: body ${JSON.stringify(body)}`);
-
     // Request to exchange code for an access token
     const response = await fetch(`https://github.com/login/oauth/access_token`, {
       method: "POST",
@@ -52,41 +49,21 @@ export const requestToken = async (code: string): Promise<any> => {
         "Accept": "application/json"
       }
     });
-
-    if (response.status >= 400) {
-      //trace(`GitHub Request Token: response.status ${JSON.stringify(response.status)}`);
-      throw new Error("Bad response from server");
-    }
-
-    const tokenObj = await response.json();
-
-    return tokenObj;
-  } catch (err) {
-    //trace(`GitHub Request Token: err ${JSON.stringify(err)}`);
-    throw err;
-  }
-
 }
 export const requestTokenFromGitHub = async (code: string): Promise<any> => {
-  try {
 
     const tokenObj = await requestToken(code);
 
     // Request to return data of a user that has been authenticated
-    const userObj = await requestUser(tokenObj.access_token);
+    //const userObj = await requestUser(tokenObj.access_token);
 
-    const response = {
-      token: tokenObj,
-      user: userObj
-    }
+    //const response = {
+    //  token: tokenObj,
+    //  user: userObj
+    //}
 
     //trace(`GitHub requestTokenFromGitHub: response ${JSON.stringify(response)}`);
 
-    return response;
-
-  } catch (err) {
-    //trace(`GitHub requestTokenFromGitHub: err ${JSON.stringify(err)}`);
-    throw (err);
-  }
+    return tokenObj;
 
 }
