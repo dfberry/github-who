@@ -22,9 +22,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         } else {
             try {
                 responseMessage = await requestTokenFromGitHub(code);
-                responseStatus = 200;
                 context.res = {
-                    status: 404,
+                    status: 200,
                     body: responseMessage
                 };
             } catch (err) {

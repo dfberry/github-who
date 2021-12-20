@@ -33,6 +33,7 @@ export const requestTokenFromApi = async (code: string, environment: Environment
         const response: any = await fetch(uri, {
             method: "POST",
             headers: {
+                "Accept": 'application/json',
                 "content-type": "application/json",
             }
         });
