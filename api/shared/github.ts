@@ -1,7 +1,7 @@
 import fetch from 'cross-fetch';
+import { env } from 'process';
+import { getEnvironment  } from './environment';
 
-const clientId = process.env["GITHUB_OAUTH_CLIENT_ID"];
-const clientSecret = process.env["GITHUB_OAUTH_CLIENT_SECRET"];
 
 export const requestUser = async (token: string): Promise<any> => {
   try {
@@ -29,9 +29,13 @@ export const requestUser = async (token: string): Promise<any> => {
 }
 export const requestToken = async (code: string): Promise<any> => {
   try {
+
+    const environment = getEnvironment(); 
+
     const body = {
-      "client_id": clientId,
-      "client_secret": clientSecret,
+      "client_id": environment.gitHubClientId,
+      "client_secret": environment.gitHubClientSecret,
+      "redirect_uri": environment.gitHubRedirectUri,
       "code": code
     };
 
