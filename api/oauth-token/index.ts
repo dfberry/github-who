@@ -9,7 +9,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
         
         context.log('api/github/oauth/access_token');
-        logInit(context.log);
+        //logInit(context.log);
 
         //trace('api/github/oauth/access_token app insights init');
         const code = (req.query.code || (req.body && req.body.code));
@@ -24,6 +24,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 responseMessage = await requestTokenFromGitHub(code);
                 responseStatus = 200;
             } catch (err) {
+                context.log(err);
                 responseMessage = err;
                 responseStatus = 500;
             }
