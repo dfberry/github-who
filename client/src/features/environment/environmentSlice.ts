@@ -4,7 +4,10 @@ import { Environment} from './environmentModel';
 
 
 export const initialState: Environment = {
-    production: (process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod')))
+    production: (process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod'))),
+    gitHubRedirectUri: (process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod')))
+        ? ""
+        : process.env.REACT_APP_GITHUB_REDIRECT_URI
 };
 
 export const environmentSlice = createSlice({

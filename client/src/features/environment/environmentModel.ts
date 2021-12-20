@@ -1,3 +1,4 @@
 export interface Environment {
-    production: boolean
+    production: boolean,
+    gitHubRedirectUri?: string // Production: empty string, Development: use .env file
 }

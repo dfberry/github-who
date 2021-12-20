@@ -8,10 +8,9 @@ declare var process : {
   }
 
 const clientId: string = process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID;
-const redirectUri = process.env.REACT_APP_GITHUB_REDIRECT_URI;
 const state = process.env.REACT_APP_GITHUB_STATE;
 
-export const getUriForOauthLogin = () =>{
+export const getUriForOauthLogin = (redirectUri:string) =>{
     return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&allow_signup=true`    
 }
 
@@ -23,7 +22,7 @@ export const getCodeFromQueryString = (): string => {
         return "";
     }
 }
-export const requestTokenFromApi = async (code: string): Promise<any> => {
+export const requestTokenFromApi = async (code: string, redirectUri: string): Promise<any> => {
     try {
 
         if(!clientId || !code || !state || !redirectUri){
@@ -53,14 +52,14 @@ export const requestTokenFromApi = async (code: string): Promise<any> => {
     Exchange code for token from our own API. 
 
 */
-export const requestToken = async (): Promise<any> => {
+export const requestToken = async (redirectUri: string): Promise<any> => {
 
     const code: string = getCodeFromQueryString();
 
     // have code, need to get token
     try {
         if (code) {
-            return await requestTokenFromApi(code);
+            return await requestTokenFromApi(code, redirectUri);
         } else {
             throw new Error('Client: Code not found');
         }

@@ -12,7 +12,11 @@ import { useAppDispatch } from './app/hooks';
 import {
     add
   } from './features/user/userSlice';
-
+import { useAppSelector } from './app/hooks';
+import {
+    selectEnvironment,
+} from './features/environment/environmentSlice';
+  
 
 type Props = {
     children?: React.ReactNode
@@ -21,6 +25,7 @@ const AuthRedirect: React.FC<Props> = ({ children }) => {
     
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const environment = useAppSelector(selectEnvironment);
 
     useEffect(() => {
 
@@ -31,7 +36,7 @@ const AuthRedirect: React.FC<Props> = ({ children }) => {
     });
 
     const getToken = async () => {
-        requestToken()
+        requestToken(environment.gitHubRedirectUri || "")
             .then((result) => {               
                 if (result && result.user && result.token) {
                     dispatch(add({user:result.user, token:result.token, status: 'authenticated', error: undefined}));
