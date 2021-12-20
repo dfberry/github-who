@@ -8,7 +8,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     try {
 
         
-        context.log('api/github/oauth/access_token');
+        context.log('APILOG: api/github/oauth/access_token');
         //logInit(context.log);
 
         //trace('api/github/oauth/access_token app insights init');
@@ -24,7 +24,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 responseMessage = await requestTokenFromGitHub(code);
                 responseStatus = 200;
             } catch (err) {
-                context.log(err);
+                context.log(`APILOG: ${JSON.stringify(err)}`);
                 responseMessage = err;
                 responseStatus = 500;
             }
@@ -35,10 +35,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
     } catch (err) {
         //trace(`api/github/oauth/access_token ${JSON.stringify(err)}`);
-        context.log(`api/github/oauth/access_token ${JSON.stringify(err)}`);
+        context.log(`APILOG:  api/github/oauth/access_token ${JSON.stringify(err)}`);
         context.res = {
             status: 500,
-            body: `api error: ${JSON.stringify(err)}`
+            body: `APIERROR: ${JSON.stringify(err)}`
         };
     }
 };

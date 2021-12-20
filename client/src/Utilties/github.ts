@@ -36,10 +36,10 @@ export const requestTokenFromApi = async (code: string, environment: Environment
                 "content-type": "application/json",
             }
         });
-        const { token, user } = await response.json();
-        console.log(token);
-        console.log(user);
-        return { token, user };
+        const responseJSON = await response.json();
+        console.log(JSON.stringify(responseJSON));
+
+        return responseJSON;
     } catch (err) {
         console.log(err);
         throw (err);
