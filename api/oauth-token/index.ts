@@ -18,27 +18,31 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let responseStatus = 404;
 
         if (!code) {
-            responseMessage = "Required parameter code was not found";
+            throw new Error("Required parameter code was not found");
         } else {
             try {
                 responseMessage = await requestTokenFromGitHub(code);
                 responseStatus = 200;
+                context.res = {
+                    status: 404,
+                    body: responseMessage
+                };
             } catch (err) {
-                context.log(`APILOG: ${JSON.stringify(err)}`);
-                responseMessage = err;
-                responseStatus = 500;
+                throw err;
             }
         }
-        context.res = {
-            status: responseStatus,
-            body: responseMessage
-        };
+
     } catch (err) {
+
+        const returnError = {
+            error: JSON.stringify(err)
+        }
+
         //trace(`api/github/oauth/access_token ${JSON.stringify(err)}`);
         context.log(`APILOG:  api/github/oauth/access_token ${JSON.stringify(err)}`);
         context.res = {
-            status: 500,
-            body: `APIERROR: ${JSON.stringify(err)}`
+            status: 404,
+            body: returnError
         };
     }
 };
