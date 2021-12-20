@@ -4,9 +4,6 @@ import { logInit, trace } from '../shared/logging';
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-
-    try {
-
         
         context.log('APILOG: api/github/oauth/access_token');
         //logInit(context.log);
@@ -31,19 +28,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             }
         }
 
-    } catch (err) {
-
-        const returnError = {
-            error: JSON.stringify(err)
-        }
-
-        //trace(`api/github/oauth/access_token ${JSON.stringify(err)}`);
-        context.log(`APILOG:  api/github/oauth/access_token ${JSON.stringify(err)}`);
-        context.res = {
-            status: 404,
-            body: returnError
-        };
-    }
 };
 
 export default httpTrigger;
