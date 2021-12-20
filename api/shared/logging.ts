@@ -3,6 +3,7 @@ import { getEnvironment  } from './environment';
 
 let setup = false;
 let client = undefined;
+let production = undefined;
 
 export const logInit = () =>{
     const environment = getEnvironment();
@@ -10,6 +11,7 @@ export const logInit = () =>{
     // Optional - so check if key is set
     if(!environment.azureApplicationInsightsInstrumentationKey || 
         environment.azureApplicationInsightsInstrumentationKey.length===0){
+            production=environment.isProduction;
             throw new Error("can't find instrumentation key");
             return ; 
         }
@@ -27,17 +29,19 @@ export const logInit = () =>{
     .start();
 
     // Set cloud role - hope this shows up in logs
+    /*
     let cloudRole = "Production";
     if(!environment.isProduction){
         cloudRole = "Development"
     } 
     
     appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = "cloudRole";
-
+    */
     client = appInsights.defaultClient;
     setup = true;
 
-    trace('app insights set up complete');
+    client.trackTrace({message: `App Insights ready to use`});
+    
 }
 
 // `any` allows for object or string
