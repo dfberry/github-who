@@ -25,7 +25,7 @@ export const requestTokenFromApi = async (code: string, environment: Environment
             throw new Error("Required parameters are missing");
         }
 
-        const uri = `/api/github/oauth/access_token?client_id=${encodeURIComponent(environment.gitHubClientId)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(encodeURIComponent(environment.gitHubRedirectUri))}`;
+        const uri = `/api/github/oauth/access_token?code=${encodeURIComponent(code)}`;
 
         console.log(uri);
 
