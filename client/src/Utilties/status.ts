@@ -1,5 +1,3 @@
-import { Environment } from '../features/environment/environmentModel';
-
 export const requestStatusFromApi = async (): Promise<any> => {
     try {
 
