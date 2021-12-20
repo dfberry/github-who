@@ -2,7 +2,8 @@ type Environment = {
     isProduction: boolean,
     gitHubRedirectUri: string, 
     gitHubClientId: string,
-    gitHubState: string
+    gitHubState: string,
+    azureApplicationInsightsInstrumentationKey: string
 }
 export const getEnvironment = () =>{
     // 'production' or anything else
@@ -35,13 +36,14 @@ export const getEnvironment = () =>{
         throw new Error("State: expect GitHub client secret but didn't find one");
     }
 
-    // Required
-    const gitHubState = process.env.REACT_APP_GITHUB_STATE;
+    // Required in production
+    const azureApplicationInsightsInstrumentationKey = process.env.AZURE_APPLICATIONINSIGHTS_INSTRUMENTATION_KEY;
 
     return {
         isProduction,
         gitHubRedirectUri, 
         gitHubClientId,
-        gitHubClientSecret
+        gitHubClientSecret,
+        azureApplicationInsightsInstrumentationKey
     }
 }

@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
-import { env } from 'process';
 import { getEnvironment  } from './environment';
+import { trace } from './logging';
 
 
 export const requestUser = async (token: string): Promise<any> => {
@@ -17,13 +17,15 @@ export const requestUser = async (token: string): Promise<any> => {
     });
 
   if (response.status >= 400) {
+    trace(`GitHub Request User: fetch returned state ${response.status}`);
     throw new Error("Bad response from server");
   }
 
   const userObj = await response.json();
   return userObj;
 } catch (err) {
-  console.log(err);
+  trace(`GitHub Request User: fetch returned state ${err}`);
+  throw err;
 }
 
 }
@@ -39,6 +41,8 @@ export const requestToken = async (code: string): Promise<any> => {
       "code": code
     };
 
+    trace(`GitHub Request Token: body ${body}`);
+
     // Request to exchange code for an access token
     const response = await fetch(`https://github.com/login/oauth/access_token`, {
       method: "POST",
@@ -50,6 +54,7 @@ export const requestToken = async (code: string): Promise<any> => {
     });
 
     if (response.status >= 400) {
+      trace(`GitHub Request Token: response.status ${response.status}`);
       throw new Error("Bad response from server");
     }
 
@@ -57,7 +62,8 @@ export const requestToken = async (code: string): Promise<any> => {
 
     return tokenObj;
   } catch (err) {
-    console.log(err);
+    trace(`GitHub Request Token: err ${err}`);
+    throw err;
   }
 
 }
@@ -69,13 +75,17 @@ export const requestTokenFromGitHub = async (code: string): Promise<any> => {
     // Request to return data of a user that has been authenticated
     const userObj = await requestUser(tokenObj.access_token);
 
-    return {
+    const response = {
       token: tokenObj,
       user: userObj
     }
 
+    trace(`GitHub requestTokenFromGitHub: response ${response}`);
+
+    return response;
+
   } catch (err) {
-    console.log(err);
+    trace(`GitHub requestTokenFromGitHub: err ${err}`);
     throw (err);
   }
 
