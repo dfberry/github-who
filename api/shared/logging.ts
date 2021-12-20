@@ -5,8 +5,9 @@ let setup = false;
 let client = undefined;
 let production = undefined;
 
-export const logInit = () =>{
+export const logInit = (log) =>{
     const environment = getEnvironment();
+    log(JSON.stringify(environment));
 
     // Optional - so check if key is set
     if(!environment.azureApplicationInsightsInstrumentationKey || 
