@@ -17,14 +17,14 @@ export const requestUser = async (token: string): Promise<any> => {
     });
 
   if (response.status >= 400) {
-    trace(`GitHub Request User: fetch returned state ${response.status}`);
+    trace(`GitHub Request User: fetch returned state ${JSON.stringify(response.status)}`);
     throw new Error("Bad response from server");
   }
 
   const userObj = await response.json();
   return userObj;
 } catch (err) {
-  trace(`GitHub Request User: fetch returned state ${err}`);
+  trace(`GitHub Request User: fetch returned state ${JSON.stringify(err)}`);
   throw err;
 }
 
@@ -41,7 +41,7 @@ export const requestToken = async (code: string): Promise<any> => {
       "code": code
     };
 
-    trace(`GitHub Request Token: body ${body}`);
+    trace(`GitHub Request Token: body ${JSON.stringify(body)}`);
 
     // Request to exchange code for an access token
     const response = await fetch(`https://github.com/login/oauth/access_token`, {
@@ -54,7 +54,7 @@ export const requestToken = async (code: string): Promise<any> => {
     });
 
     if (response.status >= 400) {
-      trace(`GitHub Request Token: response.status ${response.status}`);
+      trace(`GitHub Request Token: response.status ${JSON.stringify(response.status)}`);
       throw new Error("Bad response from server");
     }
 
@@ -62,7 +62,7 @@ export const requestToken = async (code: string): Promise<any> => {
 
     return tokenObj;
   } catch (err) {
-    trace(`GitHub Request Token: err ${err}`);
+    trace(`GitHub Request Token: err ${JSON.stringify(err)}`);
     throw err;
   }
 
@@ -80,12 +80,12 @@ export const requestTokenFromGitHub = async (code: string): Promise<any> => {
       user: userObj
     }
 
-    trace(`GitHub requestTokenFromGitHub: response ${response}`);
+    trace(`GitHub requestTokenFromGitHub: response ${JSON.stringify(response)}`);
 
     return response;
 
   } catch (err) {
-    trace(`GitHub requestTokenFromGitHub: err ${err}`);
+    trace(`GitHub requestTokenFromGitHub: err ${JSON.stringify(err)}`);
     throw (err);
   }
 

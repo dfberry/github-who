@@ -31,7 +31,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             body: responseMessage
         };
     } catch (err) {
-        trace(`api/github/oauth/access_token ${JSON.stringify(err)}`)
+        trace(`api/github/oauth/access_token ${JSON.stringify(err)}`);
+        context.log(`api/github/oauth/access_token ${JSON.stringify(err)}`);
         context.res = {
             status: 500,
             body: "An error occured"
