@@ -9,8 +9,11 @@ export const logInit = () =>{
 
     // Optional - so check if key is set
     if(!environment.azureApplicationInsightsInstrumentationKey || 
-        environment.azureApplicationInsightsInstrumentationKey.length===0)
-    return ;   
+        environment.azureApplicationInsightsInstrumentationKey.length===0){
+            throw new Error("can't find instrumentation key");
+            return ; 
+        }
+  
 
     appInsights.setup(environment.azureApplicationInsightsInstrumentationKey).setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
@@ -33,6 +36,8 @@ export const logInit = () =>{
 
     client = appInsights.defaultClient;
     setup = true;
+
+    trace('app insights set up complete');
 }
 
 // `any` allows for object or string

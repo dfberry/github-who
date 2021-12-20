@@ -7,9 +7,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     try {
 
+        
+        context.log('api/github/oauth/access_token'))
         logInit();
 
-        trace('api/github/oauth/access_token');
+        trace('api/github/oauth/access_token app insights init');
         const code = (req.query.code || (req.body && req.body.code));
 
         let responseMessage = null;
