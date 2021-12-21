@@ -1,11 +1,26 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import fetch from 'cross-fetch';
 //import { getEnvironment  } from '../shared/environment';
+import * as appInsights from 'applicationinsights';
+
+appInsights.setup(process.env.AZURE_APPLICATIONINSIGHTS_INSTRUMENTATION_KEY).setAutoDependencyCorrelation(true)
+    .setAutoCollectRequests(true)
+    .setAutoCollectPerformance(true, true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectDependencies(true)
+    .setAutoCollectConsole(true)
+    .setUseDiskRetryCaching(true)
+    .setSendLiveMetrics(false)
+    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+    .start();
+
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
   try {
+
+
 
     context.log('APILOG: api/github/oauth/access_token');
     const code = (req.query.code || (req.body && req.body.code));
