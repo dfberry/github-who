@@ -1,7 +1,7 @@
 import fetch from 'cross-fetch';
+import { getEnvironment  } from './environment';
+import { trace } from './logging';
 
-const clientId = process.env["GITHUB_OAUTH_CLIENT_ID"];
-const clientSecret = process.env["GITHUB_OAUTH_CLIENT_SECRET"];
 
 export const requestUser = async (token: string): Promise<any> => {
   try {
@@ -17,21 +17,26 @@ export const requestUser = async (token: string): Promise<any> => {
     });
 
   if (response.status >= 400) {
+    //trace(`GitHub Request User: fetch returned state ${JSON.stringify(response.status)}`);
     throw new Error("Bad response from server");
   }
 
   const userObj = await response.json();
   return userObj;
 } catch (err) {
-  console.log(err);
+  //trace(`GitHub Request User: fetch returned state ${JSON.stringify(err)}`);
+  throw err;
 }
 
 }
 export const requestToken = async (code: string): Promise<any> => {
-  try {
+
+    const environment = getEnvironment(); 
+
     const body = {
-      "client_id": clientId,
-      "client_secret": clientSecret,
+      "client_id": environment.gitHubClientId,
+      "client_secret": environment.gitHubClientSecret,
+      "redirect_uri": environment.gitHubRedirectUri,
       "code": code
     };
 
@@ -44,35 +49,21 @@ export const requestToken = async (code: string): Promise<any> => {
         "Accept": "application/json"
       }
     });
-
-    if (response.status >= 400) {
-      throw new Error("Bad response from server");
-    }
-
-    const tokenObj = await response.json();
-
-    return tokenObj;
-  } catch (err) {
-    console.log(err);
-  }
-
 }
 export const requestTokenFromGitHub = async (code: string): Promise<any> => {
-  try {
 
     const tokenObj = await requestToken(code);
 
     // Request to return data of a user that has been authenticated
-    const userObj = await requestUser(tokenObj.access_token);
+    //const userObj = await requestUser(tokenObj.access_token);
 
-    return {
-      token: tokenObj,
-      user: userObj
-    }
+    //const response = {
+    //  token: tokenObj,
+    //  user: userObj
+    //}
 
-  } catch (err) {
-    console.log(err);
-    throw (err);
-  }
+    //trace(`GitHub requestTokenFromGitHub: response ${JSON.stringify(response)}`);
+
+    return tokenObj;
 
 }

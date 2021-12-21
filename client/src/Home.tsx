@@ -6,7 +6,7 @@ type Props = {
 const Home: React.FC<Props> = ({ children }) => {
     return (
         <div className="Home">
-            <h2>Home View</h2>
+            <h2>Home View 1</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
         </div>
     )

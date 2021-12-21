@@ -1,76 +1,48 @@
-import { log } from './log';
+import { Environment } from '../features/environment/environmentModel';
 
-declare var process : {
-    env: {
-        REACT_APP_GITHUB_OAUTH_CLIENT_ID: string,
-        REACT_APP_GITHUB_OAUTH_CLIENT_SECRET: string,
-        REACT_APP_GITHUB_REDIRECT_URI:string,
-        REACT_APP_GITHUB_STATE: string
-    }
-  }
+export const getUriForOauthLogin = (environment: Environment) =>{
+    const uri =  `https://github.com/login/oauth/authorize?client_id=${environment.gitHubClientId}&redirect_uri=${environment.gitHubRedirectUri}&state=${environment.gitHubState}&allow_signup=true`;
 
-const clientId: string = process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID;
-const redirectUri = process.env.REACT_APP_GITHUB_REDIRECT_URI;
-const state = process.env.REACT_APP_GITHUB_STATE;
+    console.log(uri);
 
-export const getUriForOauthLogin = () =>{
-    return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&allow_signup=true`    
+    return uri;
+    
 }
 
 export const getCodeFromQueryString = (): string => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
-        log("verbose", code);
+        console.log(code);
         return code;
     } else {
         return "";
     }
 }
-export const requestTokenFromApi = async (code: string): Promise<any> => {
+export const requestTokenFromApi = async (code: string, environment: Environment): Promise<any> => {
     try {
 
-        if(!clientId || !code || !state || !redirectUri){
+        if(!code){
             throw new Error("Required parameters are missing");
         }
 
+        const uri = `/api/github/oauth/access_token?code=${encodeURIComponent(code)}`;
+
+        console.log(uri);
+
         // Azure Function API
-        const response: any = await fetch(`/api/github/oauth/access_token?client_id=${encodeURIComponent(clientId)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(encodeURIComponent(redirectUri))}`, {
+        const response: any = await fetch(uri, {
             method: "POST",
             headers: {
+                "Accept": 'application/json',
                 "content-type": "application/json",
             }
         });
-        const { token, user } = await response.json();
-        log("verbose", token);
-        log("verbose", user);
-        return { token, user };
-    } catch (err:any) {
-        log("error", err);
-        throw (err);
-    }
+        const responseJSON = await response.json();
+        console.log(JSON.stringify(responseJSON));
 
-}
-export const requestUserReposFromApi = async (token: string): Promise<any> => {
-    try {
-
-        if(!token){
-            throw new Error("Required parameters are missing");
-        }
-        
-        // Azure Function API
-        const response: any = await fetch(`http://localhost:7071/api/github/user/repositories`, {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        const { status, repos } = await response.json();
-        log("verbose", status);
-        log("verbose", repos);
-        return { status, repos };
-    } catch (err:any) {
-        log("error", err);
+        return responseJSON;
+    } catch (err) {
+        console.log(err);
         throw (err);
     }
 
@@ -81,20 +53,19 @@ export const requestUserReposFromApi = async (token: string): Promise<any> => {
     Exchange code for token from our own API. 
 
 */
-export const requestToken = async (): Promise<any> => {
+export const requestToken = async (environment: Environment): Promise<any> => {
 
     const code: string = getCodeFromQueryString();
 
     // have code, need to get token
     try {
         if (code) {
-            log("verbose", code);
-            return await requestTokenFromApi(code);
+            return await requestTokenFromApi(code, environment);
         } else {
             throw new Error('Client: Code not found');
         }
-    } catch (err:any ) {
-        log("error", err);
-        throw err;
+    } catch (err) {
+        console.log("can't request token");
+        console.log(err);
     }
 }

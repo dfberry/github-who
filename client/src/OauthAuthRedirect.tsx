@@ -4,71 +4,55 @@
 2. OauthTokenRedirect - second step - returned token
 
 */
-
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { requestToken } from "./Utilties/github";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useEffectAsync } from './Utilties/reactHelpers';
+import { useNavigate } from "react-router-dom";
 import { Loading } from './Components/Loading';
-
-import { IUser } from './Redux/index';
+import { useAppDispatch } from './app/hooks';
+import {
+    add
+  } from './features/user/userSlice';
+import { useAppSelector } from './app/hooks';
+import {
+    selectEnvironment,
+} from './features/environment/environmentSlice';
+  
 
 type Props = {
-    children?: React.ReactNode,
-    saveUser: (user: IUser | any) => void
+    children?: React.ReactNode
 };
-const AuthRedirect: React.FC<Props> = ({ children, saveUser }) => {
-
-    const [status, setStatus] = useState<boolean>(false);
-    const [token, setToken] = useState<object>({});
-    const [user, setUser] = useState<IUser | {}>();
-    const [error, setError] = useState<string>("");
+const AuthRedirect: React.FC<Props> = ({ children }) => {
     
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const environment = useAppSelector(selectEnvironment);
 
-    useEffectAsync(async () => {
-        await getToken();
-    }, []);
+    useEffect(() => {
 
-    const addUser = (user: IUser) => {
-        saveUser(user)
-      }
+        (async () => {
+            await getToken()
+          })()
+
+    });
 
     const getToken = async () => {
-        requestToken()
+        requestToken(environment)
             .then((result) => {               
                 if (result && result.user && result.token) {
-
-                    // Success - have user and token
-                    addUser({
-                        token: result.token,
-                        user: result.user,
-                        isAuthenticated: true,
-                        error: ""
-                    });
-                    
-
-                    navigate('/github/my/profile');
+                    dispatch(add({user:result.user, token:result.token, status: 'authenticated', error: undefined}));
+                    navigate('/github-profile');
                 } else if (!result.token) {
-
-                    addUser({
-                        token: {},
-                        user: {},
-                        isAuthenticated: false,
-                        error: "Token not returned"
-                    });
-
+                    dispatch(add({user: undefined, token: undefined, status: 'failed', error: "Authentication: token not found"}));
+                    navigate('/login');
+                } else if (!result.user){
+                    dispatch(add({user: undefined, token: undefined, status: 'failed', error: "Authentication: user not found"}));
                     navigate('/login');
                 } else {
-
-                    addUser({
-                        token: {},
-                        user: {},
-                        isAuthenticated: false,
-                        error: "User not returned"
-                    });
+                    dispatch(add({user: undefined, token: undefined, status: 'failed', error: "Authentication: unknown error"}));
+                    navigate('/login');                 
                 }
             }).catch((err) => {
+                dispatch(add({user: undefined, token: undefined, status: 'failed', error: `Authentication: catch ${JSON.stringify(err)}`}));
                 navigate('/login');
             });
     }

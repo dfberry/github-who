@@ -1,7 +1,11 @@
 import React from 'react';
 import AppButton from './Components/Button'
-import {useLocation} from 'react-router-dom';
 import {getUriForOauthLogin} from './Utilties/github'
+import { useAppSelector } from './app/hooks';
+import {
+    selectEnvironment,
+  } from './features/environment/environmentSlice';
+
 
 type Props = {
     children?: React.ReactNode,
@@ -9,12 +13,11 @@ type Props = {
 };
 const Login: React.FC<Props> = ({ children, error }) => {
 
-    const { state } = useLocation();
+    const environment = useAppSelector(selectEnvironment);
 
     return (
         <div className="Login">
-            {error && <div className="errorMessage">{error}</div>}
-            <AppButton name="GitHub App Login" url={getUriForOauthLogin()}></AppButton>
+            <AppButton name="GitHub App Login" url={getUriForOauthLogin(environment)}></AppButton>
         </div>
         
     )

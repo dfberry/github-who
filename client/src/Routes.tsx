@@ -1,40 +1,20 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import {
     Routes,
     Route,
-    BrowserRouter as Router,
-    Link,
-    useNavigate,
-    useLocation,
-    Navigate,
-    Outlet
+    BrowserRouter as Router
 } from "react-router-dom";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { Dispatch } from "redux";
 import Login from './Login';
 import Home from './Home';
 import NavigationBar from './Components/NavigationBar';
 import AuthRedirect from './OauthAuthRedirect';
-import GitHubProfile from './GitHubProfile';
-import { IUser, UserState, addUser } from './Redux/index';
+import { User } from './features/user/User';
+import Status from './Status';
+
 type Props = {
     children?: React.ReactNode
 };
 const AppRoutes: React.FC<Props> = ({ children }) => {
-
-
-    const user: IUser = useSelector(
-        (state: UserState) => state.user,
-        shallowEqual
-    )
-
-    const dispatch: Dispatch<any> = useDispatch()
-
-    const saveUser = React.useCallback(
-        (article: IUser) => dispatch(addUser(user)),
-        [dispatch]
-    )
 
     return (
 
@@ -42,10 +22,10 @@ const AppRoutes: React.FC<Props> = ({ children }) => {
             <NavigationBar></NavigationBar>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login error={user.error}/>} />
-                <Route path="/auth-redirect" element={<AuthRedirect saveUser={saveUser} />} />
-                <Route path="/github/my/profile" element={<GitHubProfile user={user}/>} />
-                <Route path="/github/my/repos" element={<GitHubProfile user={user}/>} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/auth-redirect" element={<AuthRedirect />} />
+                <Route path="/github-profile" element={<User />} />
+                <Route path="/status" element={<Status />} />
             </Routes>
         </Router>)
 }

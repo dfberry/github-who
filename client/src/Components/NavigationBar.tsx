@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 
 type Props = {
@@ -17,9 +16,7 @@ const NavigationBar: React.FC<Props> = ({ title }) => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/Login">Login</Nav.Link>
-                            <Nav.Link href="/Profile">Profile</Nav.Link>
-                            <Nav.Link href="/Repos">Repos</Nav.Link>
+                            <Nav.Link href="/login">Login</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
