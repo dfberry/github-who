@@ -10,6 +10,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.log('APILOG: api/github/oauth/access_token');
     const code = (req.query.code || (req.body && req.body.code));
 
+    if (!code) throw new Error("Token: code is required but wasn't found");
+
     //const environment = getEnvironment(); 
     const gitHubBody = {
       "client_id": process.env.GITHUB_OAUTH_CLIENT_ID,
@@ -17,6 +19,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
       "redirect_uri": process.env.GITHUB_OAUTH_REDIRECT_URI,
       "code": code
     }
+
+    if (!process.env.GITHUB_OAUTH_CLIENT_ID) throw new Error("Token: process.env.GITHUB_OAUTH_CLIENT_ID is required but wasn't found");
+    if (!process.env.GITHUB_OAUTH_CLIENT_SECRET) throw new Error("Token: process.env.GITHUB_OAUTH_CLIENT_SECRET is required but wasn't found");
+    if (!process.env.GITHUB_OAUTH_REDIRECT_URI) throw new Error("Token: process.env.GITHUB_OAUTH_REDIRECT_URI is required but wasn't found");
 
     // Request to exchange code for an access token
     const responseToken = await fetch(`https://github.com/login/oauth/access_token`, {
@@ -48,13 +54,24 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
       }
     };
   } catch (err) {
-    context.res = {
-      status: 500,
-      body: { error: err.message, stack: err.stack, code: err.code },
-      headers: {
-        "Content-Type": "application/json",
-      }
-    };
+
+    if (err.message.includes('Token:')) {
+      context.res = {
+        status: 404,
+        body: { error: err.message, stack: err.stack, code: err.code },
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
+    } else {
+      context.res = {
+        status: 500,
+        body: { error: "API: " + err.message, stack: err.stack, code: err.code },
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
+    }
   }
 };
 
