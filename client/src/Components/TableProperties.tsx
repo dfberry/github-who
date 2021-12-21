@@ -1,7 +1,5 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
-import CSS from 'csstype';
 
 type ObjectPair = { [index: string]: any };
 
@@ -38,10 +36,6 @@ const TableProperties: React.FC<Props> = ({ name = "", data = {}, style = {} }) 
 
         }))
     }
-
-    const leftAlignedColumn: CSS.Properties = {
-        justifyContent:'left'
-      };
 
     return (
         <>

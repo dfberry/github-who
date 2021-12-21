@@ -26,7 +26,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     });
     const tokenObj = await responseToken.json();
 
-    /*
+    
     const responseUser = await fetch(`https://api.github.com/user`, {
         headers: {
           "Authorization": `token ${tokenObj.access_token}`,
@@ -35,11 +35,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
       });
     const userObj = await responseUser.json();
-      */
+      
 
     context.res = {
         status: 200,
-        body: {token: tokenObj}
+        body: {token: tokenObj, user: userObj}
     };
 };
 

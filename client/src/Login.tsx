@@ -8,10 +8,9 @@ import {
 
 
 type Props = {
-    children?: React.ReactNode,
-    error: string
+    children?: React.ReactNode
 };
-const Login: React.FC<Props> = ({ children, error }) => {
+const Login: React.FC<Props> = ({ children }) => {
 
     const environment = useAppSelector(selectEnvironment);
 
