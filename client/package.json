@@ -27,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "browse-local": "npx open http://localhost:3000",
+    "browse-cloud": "npx open https://thankful-glacier-0c994031e.azurestaticapps.net"
   },
   "eslintConfig": {
     "extends": [
