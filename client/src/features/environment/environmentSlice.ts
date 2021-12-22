@@ -30,7 +30,7 @@ const initialState = (): Environment => {
 
     // Testing secrets from GitHub
     const test = process.env.REACT_APP_TEST;
-    console.log(`process.env.REACT_APP_TEST = ${process.env.REACT_APP_TEST}`) 
+    console.log(`process.env.REACT_APP_TEST = ${test}`) 
 
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
