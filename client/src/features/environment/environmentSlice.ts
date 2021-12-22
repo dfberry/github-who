@@ -9,25 +9,24 @@ const initialState = (): Environment => {
     const isProduction:boolean = (process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod')))
         ? true
         : false;
-    console.log(`isProduction ${isProduction.toString()}`);
+    console.log(`isProduction ${process.env.NODE_ENV.toString()}`);
 
     // empty redirect means SWA proxies to API
-    const gitHubRedirectUri: string = (isProduction) 
-        ? ""
-        : (process.env.REACT_APP_GITHUB_REDIRECT_URI) || "";
-    console.log(gitHubRedirectUri);
+    // @ts-ignore
+    const gitHubRedirectUri: string = process.env.REACT_APP_GITHUB_REDIRECT_URI?.toString();
+    console.log(`redirect url ${process.env.REACT_APP_GITHUB_REDIRECT_URI}`);
 
     // Required
     const gitHubClientId = process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID;
-    console.log(gitHubClientId);
+    console.log(`githubClientId = ${process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID}`);
 
     // Required
     const gitHubState = process.env.REACT_APP_GITHUB_STATE;
-    console.log(gitHubState);
+    console.log(`gitHubState ${process.env.REACT_APP_GITHUB_STATE}`);
 
     // Required
     const apiBaseUri = process.env.REACT_API_BASE_URL;
-    console.log(apiBaseUri);
+    console.log(`apiBaseUri ${process.env.REACT_API_BASE_URL}`);
 
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
