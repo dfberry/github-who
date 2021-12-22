@@ -25,8 +25,12 @@ const initialState = (): Environment => {
     console.log(`gitHubState ${process.env.REACT_APP_GITHUB_STATE}`);
 
     // Required
-    const apiBaseUri = process.env.REACT_API_BASE_URL;
-    console.log(`apiBaseUri ${process.env.REACT_API_BASE_URL}`);
+    const apiBaseUri = process.env.REACT_APP_API_BASE_URL;
+    console.log(`apiBaseUri ${process.env.REACT_APP_API_BASE_URL}`);
+
+    // Testing secrets from GitHub
+    const test = process.env.REACT_APP_TEST;
+    console.log(`process.env.REACT_APP_TEST = ${process.env.REACT_APP_TEST}`) 
 
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
