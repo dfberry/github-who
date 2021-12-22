@@ -21,6 +21,9 @@ const initialState = (): Environment => {
     // Required
     const gitHubState = process.env.REACT_APP_GITHUB_STATE;
 
+    // Required
+    const apiBaseUri = process.env.REACT_API_BASE_URL;
+
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
     }
@@ -29,11 +32,16 @@ const initialState = (): Environment => {
         throw new Error("State: didn't find required GitHub app values");
     }
 
+    if(!apiBaseUri){
+        throw new Error("State: didn't find required API base uri");      
+    }
+
     return {
         isProduction,
         gitHubRedirectUri, 
         gitHubClientId,
-        gitHubState
+        gitHubState,
+        apiBaseUri
     }
 
 }
