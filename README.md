@@ -12,14 +12,19 @@
 ## Tasks
 
 * client: create-react-app
+    * create in /client
 * client: add nav bar and bootstrap
+* vscode: create static web app for react/api
 * client: add routes/routing
+    * add routes.tsx
+    * add staticwebapp.config.json
 * client: github auth:
     * .env for github config
     * add login button for github auth
     * add /auth-redirect route to get `code`
     * add api call to server
 * api github token: 
+    * create local project with vs code extension for azure functions in /api
     * add env var for github config and secrets
     * add api to exchange `code` for `token` 
     * extend api to use `token` to get user profile
