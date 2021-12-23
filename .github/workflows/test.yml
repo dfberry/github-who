@@ -33,5 +33,6 @@ jobs:
         REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
         REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
         REACT_APP_TEST: ${{secrets.REACT_APP_TEST}}
+    - run: printenv
     - run: cd client && yarn install && npm run build --if-present && npm run test
 
