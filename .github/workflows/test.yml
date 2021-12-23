@@ -5,9 +5,9 @@ name: GitHub-Who Tests
 
 on:
   push:
-    branches: [ * ]
+    branches: [ main, deploy ]
   pull_request:
-    branches: [ * ]
+    branches: [ main, deploy ]
 
 jobs:
   build:
