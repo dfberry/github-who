@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: GitHub-Who Tests
+name: wf_Client_Tests
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
     branches: [ main, deploy ]
 
 jobs:
-  build:
+  job_Client_test_build_and_run:
 
     runs-on: ubuntu-latest
 
@@ -21,11 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: job_Client_Tests_${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: client/yarn.lock
-    - run: cd client && npm ci && npm run build --if-present && npm run test
+    - run: cd client && yarn install && npm run build --if-present && npm run test
 
