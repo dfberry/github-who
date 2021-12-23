@@ -13,6 +13,13 @@ jobs:
   job_Client_test_build_and_run:
 
     runs-on: ubuntu-latest
+      env: 
+        REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
+        REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI}}
+        REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
+        REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
+        REACT_APP_TEST: ${{secrets.REACT_APP_TEST}}
+        REACT_APP_DINA: true
 
     strategy:
       matrix:
@@ -27,12 +34,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: client/yarn.lock
-      env: 
-        REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
-        REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI}}
-        REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
-        REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
-        REACT_APP_TEST: ${{secrets.REACT_APP_TEST}}
     - run: printenv
     - run: env
     - run: cd client && yarn install && npm run build --if-present && npm run test
