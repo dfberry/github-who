@@ -34,9 +34,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: client/yarn.lock
+        cache: 'yarn'
     - run: printenv
-    - run: env
-    - run: cd client && yarn install && npm run build --if-present && npm run test
+    - run: cd client && yarn install --frozen-lockfile && npm run build --if-present && npm run test
 
