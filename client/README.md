@@ -18,3 +18,18 @@ scope=public_repo%20read:repo_hook%20read:org%20read:public_key%20read:user%20us
 ## Proxy
 
 Static web app proxies to connected Azure function app
+
+## Run app
+
+1. Start github-who/react on port 3000
+2. Start github-who-api/fn on port 7071
+3. Start proxy, `npm run start-swa`, on port 4280
+
+* github-who-local uses redirect port of 4280
+
+## Kusto query to find traces
+
+```kusto
+traces
+| where message contains "YOUR-MESSAGE-PREFIX" 
+```

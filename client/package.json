@@ -31,7 +31,8 @@
     "browse-local": "npx open http://localhost:3000",
     "browse-cloud": "npx open https://thankful-glacier-0c994031e.azurestaticapps.net",
     "lint": "eslint --ext .ts --ext .tsx .",
-    "lint-warn": "eslint --ext .ts --ext .tsx . -c .eslintrc.warn.json"
+    "lint-warn": "eslint --ext .ts --ext .tsx . -c .eslintrc.warn.json",
+    "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071"
   },
   "eslintConfig": {
     "extends": [
@@ -50,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@azure/static-web-apps-cli": "^0.8.2"
   }
 }
