@@ -39,6 +39,10 @@
 * azure portal
     * function api config settings and secrets
     * 500 - never figured this 500 out - happens before api is called
+* git branch and hash 
+    * ./scripts/build-commit.js
+        * local build - must be in .env before build
+        * remote build - new steps to pull in 
 * playwright
     * initial test to validate deployment to live server
 * github action on pr
@@ -49,4 +53,6 @@
 * managed - can't seem to see context.log the same way as an independent function
 * unmanaged/independent function - if it is set up in Static web app, it is still proxied from the SWA client 
 
+## Current issues
 
+* SO: [playwright doesn't run in dev container](https://stackoverflow.com/questions/70500141/playwright-wont-run-in-vscode-dev-container-on-mac)

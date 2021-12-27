@@ -8,7 +8,7 @@
 		// Append -bullseye or -buster to pin to an OS version.
 		// Use -bullseye variants on local on arm64/Apple Silicon.
 		"args": { 
-			"VARIANT": "16-bullseye"
+			"VARIANT": "14"
 		}
 	},
 
@@ -25,7 +25,7 @@
 	"forwardPorts": [3000,4280, 7071],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install -g @azure/static-web-apps-cli azure-functions-core-tools concurrently @playwright/test",
+	"postCreateCommand": "npm install -g @azure/static-web-apps-cli azure-functions-core-tools concurrently",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "node"

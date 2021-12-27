@@ -12,9 +12,9 @@
   "devDependencies": {},
   "scripts": {
     "start": "npm run start-code && npm run start-proxy",
-    "start-code": "concurrently \"npm run start-client\" \"npm run start-api\"",
+    "start-code": "concurrently \"npm run start-dev-client\" \"npm run start-api\"",
     "start-proxy": "swa start http://localhost:3000 --api-location http://localhost:7071",
-    "start-client": "cd client && npm run build && npm run start",
+    "start-dev-client": "cd client && npm run start-dev",
     "start-api": "cd api && npm run build && npm run start",
     "swa-start-client-with-proxy": "swa start --run 'npm start' --app-location='./client' --output-location './client/dist' --swa-config-location='./client'  --verbose --print-config",
     "start-all-with-proxy": "swa start --run 'npm start' --app-location='./client' --output-location './client/dist' --swa-config-location='./client' --verbose --print-config --api-location './api' ",
