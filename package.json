@@ -1,0 +1,41 @@
+{
+  "dependencies": {
+    "@azure/static-web-apps-cli": "^0.8.2",
+    "@playwright/test": "^1.17.1",
+    "azure-functions-core-tools": "^3.0.3904",
+    "concurrently": "^6.5.1"
+  },
+  "name": "github-who",
+  "description": "# GitHub oauth app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm run start-code && npm run start-proxy",
+    "start-code": "concurrently \"npm run start-client\" \"npm run start-api\"",
+    "start-proxy": "swa start http://localhost:3000 --api-location http://localhost:7071",
+    "start-client": "cd client && npm run build && npm run start",
+    "start-api": "cd api && npm run build && npm run start",
+    "swa-start-client-with-proxy": "swa start --run 'npm start' --app-location='./client' --output-location './client/dist' --swa-config-location='./client'  --verbose --print-config",
+    "start-all-with-proxy": "swa start --run 'npm start' --app-location='./client' --output-location './client/dist' --swa-config-location='./client' --verbose --print-config --api-location './api' ",
+    
+    
+    "start-detached": "concurrently \"npm run start-dev\" \"npm run start-swa\"",
+    "e2e": "npx playwright test ./e2e",
+    "test-e2e": "npm run e2e",
+    "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071",
+    "browse-local": "npx open http://localhost:3000",
+    "browse-cloud": "npx open https://thankful-glacier-0c994031e.azurestaticapps.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dfberry/github-who.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dfberry/github-who/issues"
+  },
+  "homepage": "https://github.com/dfberry/github-who#readme"
+}
