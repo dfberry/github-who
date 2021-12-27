@@ -1,7 +1,9 @@
-export const requestStatusFromApi = async (): Promise<any> => {
+import { Environment } from '../features/environment/environmentModel';
+
+export const requestStatusFromApi = async (environment: Environment): Promise<any> => {
     try {
 
-        const uri = `/api/status`;
+        const uri = `/api/status?code=${encodeURIComponent(environment.azureFunctionHostKey)}`;
 
         console.log(uri);
 

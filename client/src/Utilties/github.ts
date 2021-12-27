@@ -9,7 +9,7 @@ export const getUriForOauthLogin = (environment: Environment) =>{
     
 }
 
-export const getCodeFromQueryString = (): string => {
+export const getGitHubCodeFromQueryString = (): string => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
         console.log(code);
@@ -25,7 +25,7 @@ export const requestTokenFromApi = async (code: string, environment: Environment
             throw new Error("Required parameters are missing");
         }
 
-        const uri = `/api/github/oauth/access_token?code=${encodeURIComponent(code)}`;
+        const uri = `/api/github/oauth/access_token?githubcode=${encodeURIComponent(code)}&code=${encodeURIComponent(environment.azureFunctionHostKey)}`;
 
         console.log(uri);
 
@@ -55,7 +55,7 @@ export const requestTokenFromApi = async (code: string, environment: Environment
 */
 export const requestToken = async (environment: Environment): Promise<any> => {
 
-    const code: string = getCodeFromQueryString();
+    const code: string = getGitHubCodeFromQueryString();
 
     // have code, need to get token
     try {

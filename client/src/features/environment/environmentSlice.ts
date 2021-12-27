@@ -24,6 +24,13 @@ const initialState = (): Environment => {
     const gitHubState = process.env.REACT_APP_GITHUB_STATE;
     console.log(`gitHubState ${process.env.REACT_APP_GITHUB_STATE}`);
 
+    // Required
+    const azureFunctionHostKey = process.env.REACT_APP_FUNCTION_APP_KEY;
+    console.log(`gitHubState ${process.env.REACT_APP_FUNCTION_APP_KEY}`);
+    if(!azureFunctionHostKey){
+        throw new Error("State: expect Azure Function host key but didn't find one");
+    }
+
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
     }
@@ -36,7 +43,8 @@ const initialState = (): Environment => {
         isProduction,
         gitHubRedirectUri, 
         gitHubClientId,
-        gitHubState
+        gitHubState,
+        azureFunctionHostKey
     }
 
 }
