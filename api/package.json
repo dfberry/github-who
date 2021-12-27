@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "clean": "npm cache clean --force",
+    "build": "npm run clean && npm run format && tsc",
+    "watch": "npm run clean && npm run format && tsc -w",
+    "start": "func start --verbose",
+    "format": "prettier --write ./**/*.{ts,js,json}",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.12",
+    "applicationinsights": "^2.2.0",
+    "cross-fetch": "^3.1.4",
+    "jest": "^27.4.5",
+    "prettier": "^2.5.1"
+  },
+  "devDependencies": {
+    "@azure/functions": "^1.2.3",
+    "typescript": "^4.0.0"
+  }
+}
