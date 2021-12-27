@@ -9,17 +9,14 @@
   "description": "# GitHub oauth app",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "npm run start-code && npm run start-proxy",
-    "start-code": "concurrently \"npm run start-client\" \"npm run start-api\"",
+    "start-code": "npm run start-client",
     "start-proxy": "swa start http://localhost:3000 --api-location http://localhost:7071",
-    "start-client": "cd client && npm run build && npm run start",
+    "start-client": "cd client && npm run start",
     "start-api": "cd api && npm run build && npm run start",
     "swa-start-client-with-proxy": "swa start --run 'npm start' --app-location='./client' --output-location './client/dist' --swa-config-location='./client'  --verbose --print-config",
     "start-all-with-proxy": "swa start --run 'npm start' --app-location='./client' --output-location './client/dist' --swa-config-location='./client' --verbose --print-config --api-location './api' ",
-    
-    
     "start-detached": "concurrently \"npm run start-dev\" \"npm run start-swa\"",
     "e2e": "npx playwright test ./e2e",
     "test-e2e": "npm run e2e",
