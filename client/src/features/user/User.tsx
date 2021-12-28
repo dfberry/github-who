@@ -1,4 +1,4 @@
-import TableProperties from "../../Components/TableProperties";
+import { DetailsListBasic } from "../../Components/DetailsListBasic";
 import { useAppSelector } from '../../app/hooks';
 import {
   selectUser,
@@ -18,9 +18,9 @@ export function User() {
   return (
     <div className="GitHubProfile">
       <h4>GitHub Profile</h4>
-        <TableProperties name="GitHub Profile" data={getUserProfile()}/>
+        <DetailsListBasic name="GitHub Profile" data={getUserProfile()}/>
         { !environment.isProduction && 
-          <TableProperties name="GitHub Auth Token" data={getUserToken()}/>
+          <DetailsListBasic name="GitHub Auth Token" data={getUserToken()}/>
         }
     </div>
   );

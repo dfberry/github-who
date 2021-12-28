@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 
 type KeyValuePair = {
     [name: string]: number
@@ -18,7 +17,7 @@ const AppCard: React.FC<Props> = ({ objWithProperties }) => {
 
     return (
         <>
-            <Container className="MainCenterGitHubLogin text-left">
+            <div className="MainCenterGitHubLogin text-left">
                 {
                     Object.keys(objWithProperties).map((key: string, i: number) => {
 
@@ -33,7 +32,7 @@ const AppCard: React.FC<Props> = ({ objWithProperties }) => {
                         )
                     })
                 }
-            </Container>
+            </div>
         </>
     )
 }

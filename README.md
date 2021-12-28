@@ -47,6 +47,23 @@
     * initial test to validate deployment to live server
 * github action on pr
     * run client tests
+* convert bootstrap ui framework to Microsoft Fluent ui framework
+    * package.json
+        * update create-react-app dependencies
+        * add fluent dependency
+        * remove bootstrap dependencies
+        * remove yarn lock b/c now using package-lock.json
+    * convert bootstrap from react components
+        * button    
+        * table -> detail list
+        * navigation bar -> stack (horizontal)
+        * container -> stack
+        * everything else -> div
+    * update parent components
+    * uses default fluent theme/colors
+    * updating react [requires node 16 minimum](https://github.com/facebook/create-react-app/issues/11792)
+    
+
 
 ## Azure Function
 
