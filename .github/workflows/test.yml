@@ -5,9 +5,9 @@ name: wf_Client_Tests
 
 on:
   push:
-    branches: [ main, deploy ]
+    branches: [ test ]
   pull_request:
-    branches: [ main, deploy ]
+    branches: [ test ]
 
 env: 
   REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
