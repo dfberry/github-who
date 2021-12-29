@@ -24,10 +24,6 @@ const initialState = (): Environment => {
     // Required
     const azureFunctionHostKey = process.env.REACT_APP_FUNCTION_APP_KEY;
 
-    if(!azureFunctionHostKey){
-        throw new Error("State: expect Azure Function host key but didn't find one");
-    }
-
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
     }
@@ -36,12 +32,30 @@ const initialState = (): Environment => {
         throw new Error("State: didn't find required GitHub app values");
     }
 
+    /*
+
+    TBD: why doesn't admin key work
+
+    https://github.com/Azure/static-web-apps/issues/672
+
+    if(!azureFunctionHostKey){
+        throw new Error("State: expect Azure Function host key but didn't find one");
+    }
+
     return {
         isProduction,
         gitHubRedirectUri, 
         gitHubClientId,
         gitHubState,
         azureFunctionHostKey
+    }
+    */
+
+    return {
+        isProduction,
+        gitHubRedirectUri, 
+        gitHubClientId,
+        gitHubState
     }
 
 }
