@@ -2,12 +2,7 @@ name: Azure Static Web Apps CI/CD
 
 on:
   push:
-    branches:
-      - deploy
   pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - deploy
 
 jobs:
   build_and_deploy_job:
@@ -20,7 +15,7 @@ jobs:
           submodules: true
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       - name: Set environment variables
         run: |
           echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV

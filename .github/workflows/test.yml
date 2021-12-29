@@ -5,9 +5,8 @@ name: wf_Client_Tests
 
 on:
   push:
-    branches: [ test ]
   pull_request:
-    branches: [ test ]
+
 
 env: 
   REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
@@ -24,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
