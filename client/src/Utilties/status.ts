@@ -5,8 +5,6 @@ export const requestStatusFromApi = async (environment: Environment): Promise<an
 
         const uri = `/api/status?code=${encodeURIComponent(environment.azureFunctionHostKey)}`;
 
-        console.log(uri);
-
         // Azure Function API
         const response: any = await fetch(uri, {
             method: "GET",
@@ -16,11 +14,9 @@ export const requestStatusFromApi = async (environment: Environment): Promise<an
             }
         });
         const responseJSON = await response.json();
-        console.log(responseJSON);
 
         return responseJSON;
     } catch (err) {
-        console.log(err);
         throw (err);
     }
 
