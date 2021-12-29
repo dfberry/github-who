@@ -5,7 +5,9 @@ name: wf_Client_Tests
 
 on:
   push:
+    branches: [ test ]
   pull_request:
+    branches: [ test ]
 
 
 env: 
