@@ -70,7 +70,7 @@ jobs:
       run: npx playwright install --with-deps
       working-directory: ${{env.working-directory}} 
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --reporter=list
       working-directory: ${{env.working-directory}}    
     - uses: actions/upload-artifact@v2
       if: always()
