@@ -47,6 +47,11 @@
     * initial test to validate deployment to live server
 * github action on pr
     * run client tests
+* edit/refactor action
+    * checkout new branch from main
+    * change action to only run on pushes to that branch - while developing
+    * when action is fixed, change/revert to the origin `on` push and prs
+    * merge back into regular pipeline
 
 ## Azure Function
 
