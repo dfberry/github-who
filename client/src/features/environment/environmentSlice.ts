@@ -14,19 +14,16 @@ const initialState = (): Environment => {
     // empty redirect means SWA proxies to API
     // @ts-ignore
     const gitHubRedirectUri: string = process.env.REACT_APP_GITHUB_REDIRECT_URI?.toString();
-    console.log(`redirect url ${process.env.REACT_APP_GITHUB_REDIRECT_URI}`);
 
     // Required
     const gitHubClientId = process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID;
-    console.log(`githubClientId = ${process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID}`);
 
     // Required
     const gitHubState = process.env.REACT_APP_GITHUB_STATE;
-    console.log(`gitHubState ${process.env.REACT_APP_GITHUB_STATE}`);
 
     // Required
     const azureFunctionHostKey = process.env.REACT_APP_FUNCTION_APP_KEY;
-    console.log(`gitHubState ${process.env.REACT_APP_FUNCTION_APP_KEY}`);
+
     if(!azureFunctionHostKey){
         throw new Error("State: expect Azure Function host key but didn't find one");
     }

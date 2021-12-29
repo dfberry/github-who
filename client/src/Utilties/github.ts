@@ -3,8 +3,6 @@ import { Environment } from '../features/environment/environmentModel';
 export const getUriForOauthLogin = (environment: Environment) =>{
     const uri =  `https://github.com/login/oauth/authorize?client_id=${environment.gitHubClientId}&redirect_uri=${environment.gitHubRedirectUri}&state=${environment.gitHubState}&allow_signup=true`;
 
-    console.log(uri);
-
     return uri;
     
 }
@@ -12,7 +10,6 @@ export const getUriForOauthLogin = (environment: Environment) =>{
 export const getGitHubCodeFromQueryString = (): string => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
-        console.log(code);
         return code;
     } else {
         return "";
@@ -27,8 +24,6 @@ export const requestTokenFromApi = async (code: string, environment: Environment
 
         const uri = `/api/github/oauth/access_token?githubcode=${encodeURIComponent(code)}&code=${encodeURIComponent(environment.azureFunctionHostKey)}`;
 
-        console.log(uri);
-
         // Azure Function API
         const response: any = await fetch(uri, {
             method: "POST",
@@ -38,11 +33,9 @@ export const requestTokenFromApi = async (code: string, environment: Environment
             }
         });
         const responseJSON = await response.json();
-        console.log(JSON.stringify(responseJSON));
 
         return responseJSON;
     } catch (err) {
-        console.log(err);
         throw (err);
     }
 
@@ -65,7 +58,6 @@ export const requestToken = async (environment: Environment): Promise<any> => {
             throw new Error('Client: Code not found');
         }
     } catch (err) {
-        console.log("can't request token");
-        console.log(err);
+        throw new Error(JSON.stringify(err));
     }
 }
