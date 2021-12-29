@@ -16,27 +16,27 @@ env:
   REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
   REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
   REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_TEST}}
-
 jobs:
   job_Client_test_build_and_run:
 
     runs-on: ubuntu-latest
-
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    name: Build and run tests
     steps:
     - uses: actions/checkout@v2
-    - name: job_Client_Tests_${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+        with:
+          submodules: true
+    - uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-        cache-dependency-path: client/yarn.lock
+        node-version: '16'
+    - name: Set environment variables
+      run: |
+        echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
+        echo "GIT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+    - name: Use environment variables
+      run: |
+        echo "GIT_SHA=${GIT_SHA}"
+        echo "GIT_BRANCH=${GIT_BRANCH}"
     - run: printenv
     - run: env
-    - run: cd client && yarn install --frozen-lockfile && npm run build --if-present && npm run test
+    - run: cd client && npm install && npm run build --if-present && npm run test
 
