@@ -52,6 +52,7 @@
     * change action to only run on pushes to that branch - while developing
     * when action is fixed, change/revert to the origin `on` push and prs
     * merge back into regular pipeline
+    * notes: run doesn't retain context from run to next item in yaml using run
 
 ## Azure Function
 
