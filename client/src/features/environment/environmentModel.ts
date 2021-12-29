@@ -3,5 +3,5 @@ export interface Environment {
     gitHubRedirectUri: string, 
     gitHubClientId: string,
     gitHubState: string,
-    azureFunctionHostKey?: string
+    azureFunctionHostKey: string
 }
