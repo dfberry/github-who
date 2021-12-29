@@ -35,15 +35,18 @@ jobs:
         echo "GIT_SHA=${GIT_SHA}"
         echo "GIT_BRANCH=${GIT_BRANCH}"
     - name: Print environment variables
-    - run: env
+      run: env
     - name: Run client test
-    - run: cd client && yarn install && npm run build --if-present && npm run test
-    - run: ls
-    - run: cd ../client && npm install && npm run build --if-present && npm run test
-    - run: ls
-    - run: cd ..
-    - run: npm install -g @azure/static-web-apps-cli azure-functions-core-tools concurrently && npm i -g azure-functions-core-tools@4 --unsafe-perm true 
-    - run: npm run start-code
-    - run: npm run start-proxy
-    - run: npm run test-e2e
+      run: cd client && yarn install && npm run build --if-present && npm run test
+    - name: Run api test
+      run: ls && cd ../api && npm install && npm run build --if-present && npm run test
+    - name: Install global packages
+      run: |
+        ls && cd .. 
+        npm install -g @azure/static-web-apps-cli azure-functions-core-tools concurrently azure-functions-core-tools@4 --unsafe-perm true 
+    - name: Run e2e tests
+      run: | 
+        npm run start-code
+        npm run start-proxy
+        npm run test-e2e
 
