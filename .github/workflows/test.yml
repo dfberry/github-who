@@ -5,9 +5,13 @@ name: Tests
 
 on:
   push:
-    branches: [ test, deploy ]
+    branches: 
+      - test
+      - deploy 
   pull_request:
-    branches: [ test, deploy ]
+    branches:
+      - test
+      - deploy 
 
 
 env: 
