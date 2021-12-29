@@ -6,12 +6,7 @@ name: Tests
 on:
   push:
     branches: 
-      - test
-      - deploy 
-  pull_request:
-    branches:
-      - test
-      - deploy 
+      - diberry/1229-full-stack-e2e-test
 
 env: 
   REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
@@ -41,16 +36,13 @@ jobs:
         echo "GIT_BRANCH=${GIT_BRANCH}"
     - name: Print environment variables
       run: env
-    - name: Run client test
-      run: cd client && yarn install && npm run build --if-present && npm run test
-    - name: Run api test
-      run: cd api && npm install && npm run build --if-present && npm run test
     - name: Install global packages
       run: |
-        npm install -g @azure/static-web-apps-cli azure-functions-core-tools concurrently azure-functions-core-tools@4 --unsafe-perm true 
+        npm install -g @azure/static-web-apps-cli concurrently azure-functions-core-tools@4 --unsafe-perm true 
+    - name: Install operating system dependencies
+      run: npx playwright install-deps
     - name: Run e2e tests
       run: | 
         npm run start-code
         npm run start-proxy
         npm run test-e2e
-
