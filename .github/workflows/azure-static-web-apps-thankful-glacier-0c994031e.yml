@@ -1,4 +1,4 @@
-name: Azure Static Web Apps CI/CD
+name: Deploy SWA
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
           submodules: true
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       - name: Set environment variables
         run: |
           echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
@@ -39,10 +39,8 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "client" # App source code path
-          api_location: "api"
           output_location: "build" # Built app content directory - optional
           app_build_command: "npm run build"
-          api_build_command: "npm run build"
           ###### End of Repository/Build Configurations ######
         env: 
           REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
