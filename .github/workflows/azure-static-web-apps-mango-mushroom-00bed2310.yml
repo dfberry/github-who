@@ -68,13 +68,12 @@ jobs:
       working-directory: ${{env.working-directory}}
     - name: Install Playwright
       run: npx playwright install --with-deps
-      working-directory: ./e2e      
+      working-directory: ${{env.working-directory}} 
     - name: Run Playwright tests
       run: npx playwright test
-      working-directory: ./e2e      
+      working-directory: ${{env.working-directory}}    
     - uses: actions/upload-artifact@v2
       if: always()
-      working-directory: ./e2e
       with:
         name: playwright-test-results
         path: test-results/        
