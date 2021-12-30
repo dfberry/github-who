@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-codegen": "npx playwright codegen https://mango-mushroom-00bed2310.azurestaticapps.net"
+    "start-codegen-test": "npx playwright codegen https://mango-mushroom-00bed2310.azurestaticapps.net",
+    "start-codegen-live": "npx playwright codegen https://thankful-glacier-0c994031e.azurestaticapps.net"
+
   },
   "keywords": [],
   "author": "",

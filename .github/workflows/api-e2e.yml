@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+name: LIVE API Deploy 
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ deploy-api-e2e ]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - deploy-api-e2e
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+env:
+  AZURE_FUNCTIONAPP_NAME: github-who-api-e2e
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '16.x'
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v2   
+    - name: Setup Node ${{ env.NODE_VERSION }} Environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    - name: Set environment variables
+      run: |
+        echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
+        echo "GIT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+    - name: Use environment variables
+      run: |
+        echo "GIT_SHA=${GIT_SHA}"
+        echo "GIT_BRANCH=${GIT_BRANCH}"          
+    - name: 'Resolve Project Dependencies Using Npm'
+      shell: bash
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        npm install
+        npm run build --if-present
+        npm run test --if-present
+        popd
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
