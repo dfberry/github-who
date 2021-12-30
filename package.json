@@ -24,9 +24,9 @@
     "e2e": "npx playwright test ./e2e",
     "test-e2e": "npm run e2e",
     "start-swa": "swa start http://localhost:3000 --api-location http://localhost:7071",
-    "browse-local": "npx open http://localhost:3000",
-    "browse-cloud": "npx open https://thankful-glacier-0c994031e.azurestaticapps.net"
+    "browse-local": "npx open http://localhost:3000"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dfberry/github-who.git"
