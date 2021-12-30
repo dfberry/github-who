@@ -1,13 +1,13 @@
-name: Deploy SWA
+name: CLIENT LIVE Deploy
 
 on:
   push:
     branches:
-      - deploy
+      - deploy-client
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - deploy
+      - deploy-client
 
 jobs:
   build_and_deploy_job:
