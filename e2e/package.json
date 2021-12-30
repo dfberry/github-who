@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "recorder": "npx playwright codegen",
     "test": "npx playwright test --reporter=list",
     "postinstall": "npx playwright install --with-deps",
     "start-recorder": "playwright codegen --target typescript -o example.js https://mango-mushroom-00bed2310.azurestaticapps.net"
