@@ -21,8 +21,15 @@ const initialState = (): Environment => {
     // Required
     const gitHubState = process.env.REACT_APP_GITHUB_STATE;
 
-    // Required
+    // Feature Flag
+    const ffAzureFunctionHostKey = (process.env.REACT_APP_FF_FUNCTION_APP_KEY && process.env.REACT_APP_FF_FUNCTION_APP_KEY.toLowerCase()==='true') ? true : false;
+
+    // Feature Flag: Required
     const azureFunctionHostKey = (process.env.REACT_APP_FUNCTION_APP_KEY) ? process.env.REACT_APP_FUNCTION_APP_KEY : "";
+
+    if(ffAzureFunctionHostKey && (!azureFunctionHostKey || azureFunctionHostKey.length===0){
+        throw new Error("State: expect function host key but didn't find one");
+    }
 
     if(!isProduction && !gitHubRedirectUri){
         throw new Error("State: expect development redirect but didn't find one");
@@ -49,7 +56,8 @@ const initialState = (): Environment => {
         gitHubRedirectUri, 
         gitHubClientId,
         gitHubState,
-        azureFunctionHostKey
+        azureFunctionHostKey,
+        ffAzureFunctionHostKey
     }
 
 }
