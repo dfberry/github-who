@@ -1,13 +1,13 @@
-name: SWA E2E
+name: CLIENT E2E Deploy and test
 
 on:
   push:
     branches:
-      - e2e
+      - deploy-client-e2e
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - e2e
+      - deploy-client-e2e
 
 jobs:
   build_and_deploy_job:
