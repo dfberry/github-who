@@ -83,3 +83,4 @@ Expected env configuration for local.settings.json (or fn configuration):
 
 * Checkout out from main
 * Change, run local test
+* PR to main 
