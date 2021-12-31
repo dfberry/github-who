@@ -1,4 +1,6 @@
-name: CLIENT E2E Deploy and test
+name: CLIENT E2E Deploy & Playwright tests
+
+## Build and deploy to test server
 
 on:
   pull_request:
@@ -21,11 +23,9 @@ jobs:
       - name: Set environment variables
         run: |
           echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
-          echo "GIT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-      - name: Use environment variables
+      - name: Print environment variables
         run: |
-          echo "GIT_SHA=${GIT_SHA}"
-          echo "GIT_BRANCH=${GIT_BRANCH}"                    
+          echo "GIT_SHA=${GIT_SHA}"                  
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -46,8 +46,8 @@ jobs:
           REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
           REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY}}
           REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}
-          REACT_APP_GIT_BRANCH: ${GIT_BRANCH}
           REACT_APP_GIT_SHA: ${GIT_SHA}
+          REACT_APP_PRINT_ENV_VAR: true
       - name: Print Env Vars
         run: |
           printenv

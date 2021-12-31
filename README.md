@@ -13,6 +13,16 @@
     * Create secret
     * Set /client folder's `.env` file with values
     * Set /api folder's `local.settings.json` with values including secret
+* Create 1 app for e2e testing and e2e deployment
+    * Create secret
+* Add secrets to key vault:
+    * Live id and secret
+    * Local id and secret
+    * e2e id and secret
+* Add secrets to repo and github action
+    * Live id and secret
+    * Local id and secret
+    * e2e id and secret
 
 ## Tasks
 

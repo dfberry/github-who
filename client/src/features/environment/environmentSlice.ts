@@ -51,15 +51,20 @@ export const initialState = (): Environment => {
 
     */
 
-    return {
+    const envVar = {
         isProduction,
         gitHubRedirectUri, 
         gitHubClientId,
         gitHubState,
         azureFunctionHostKey,
         ffAzureFunctionHostKey
+    };
+
+    if(!!process.env.REACT_APP_PRINT_ENV_VAR){
+        console.log(JSON.stringify(envVar))
     }
 
+    return envVar;
 }
 
 export const environmentSlice = createSlice({
