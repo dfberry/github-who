@@ -21,11 +21,11 @@ jobs:
       - name: Set environment variables
         run: |
           echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
-          echo "GIT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-      - name: Use environment variables
+          echo "GIT_BRANCH=${GITHUB_HEAD_REF-${GITHUB_REF##*/}}" >> $GITHUB_ENV
+      - name: Print environment variables
         run: |
           echo "GIT_SHA=${GIT_SHA}"
-          echo "GIT_BRANCH=${GITHUB_HEAD_REF-${GITHUB_REF##*/}}"        
+          echo "GIT_BRANCH=${GIT_BRANCH}"        
           echo "REACT_APP_GITHUB_REDIRECT_URI_E2E=${secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E"      
           echo "REACT_APP_FF_FUNCTION_APP_KEY_E2E=${secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}"               
       - name: Build And Deploy
