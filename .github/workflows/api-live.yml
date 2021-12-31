@@ -45,7 +45,7 @@ jobs:
         echo "GITHUB_BRANCH=${GITHUB_HEAD_REF-${GITHUB_REF##*/}}"
         echo "AZURE_FUNCTIONAPP_PACKAGE_PATH=${AZURE_FUNCTIONAPP_PACKAGE_PATH}" 
         echo "AZURE_FUNCTIONAPP_NAME=${AZURE_FUNCTIONAPP_NAME}"      
-    - name: 'Resolve Project Dependencies Using Npm'
+    - name: 'Npm install build test'
       shell: bash
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
@@ -53,7 +53,7 @@ jobs:
         npm run build --if-present
         npm run test --if-present
         popd
-    - name: 'Run Azure Functions Action'
+    - name: 'Deploy Function'
       uses: Azure/functions-action@v1
       id: fa
       with:

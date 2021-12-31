@@ -1,4 +1,4 @@
-name: CLIENT E2E Deploy and test
+name: CLIENT E2E Deploy & Playwright tests
 
 ## Build and deploy to test server
 
@@ -25,9 +25,7 @@ jobs:
           echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
       - name: Print environment variables
         run: |
-          echo "GIT_SHA=${GIT_SHA}"     
-          echo "REACT_APP_GITHUB_REDIRECT_URI_E2E=${{secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E}}"      
-          echo "REACT_APP_FF_FUNCTION_APP_KEY_E2E=${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}"               
+          echo "GIT_SHA=${GIT_SHA}"                  
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
