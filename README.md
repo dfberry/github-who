@@ -1,6 +1,11 @@
 # github-who
 
-# GitHub oauth app
+## Apps
+
+* create-react-app (TS) on Node.js 16
+* Azure Function (TS) on Node.js 14
+
+## GitHub oauth app
 
 * Create 1 app for live app & live redirect URL
     * Create secret
@@ -56,9 +61,26 @@
 
 ## Azure Function
 
-* managed - can't seem to see context.log the same way as an independent function
-* unmanaged/independent function - if it is set up in Static web app, it is still proxied from the SWA client 
+* Independent function - still proxied from the SWA client 
+* To get publish profile, use Azure portal, from Function's Overview page.
+* To set publish profile, use GitHub repo, from secrets page, set `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` to publish profile.
+
+Expected env configuration for local.settings.json (or fn configuration): 
+
+```text
+"GITHUB_OAUTH_CLIENT_ID": "",
+"GITHUB_OAUTH_CLIENT_SECRET": "",
+"GITHUB_OAUTH_REDIRECT_URI": "",
+"APPINSIGHTS_INSTRUMENTATIONKEY": "",
+"APP_FEATURE_FLAG_LOGGING": true
+```
 
 ## Current issues
 
 * SO: [playwright doesn't run in dev container](https://stackoverflow.com/questions/70500141/playwright-wont-run-in-vscode-dev-container-on-mac)
+
+## Pipeline management
+
+* Checkout out from main
+* Change, run local test
+* PR to main 
