@@ -1,9 +1,6 @@
 name: CLIENT LIVE Deploy
 
 on:
-  push:
-    branches:
-      - deploy-client
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
