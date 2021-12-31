@@ -40,14 +40,17 @@ jobs:
           app_build_command: "npm run build"
           ###### End of Repository/Build Configurations ######
         env: 
-          REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID}}
-          REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI}}
+          REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID_E2E}}
+          REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E}}
           REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
           REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
-          REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_TEST}}
-          REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY}}
+          REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY}}
+          REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}
           REACT_APP_GIT_BRANCH: ${GIT_BRANCH}
           REACT_APP_GIT_SHA: ${GIT_SHA}
+      - name: Print Env Vars
+        run: |
+          printenv
 
   test:
     name: "Test site using Playwright"
