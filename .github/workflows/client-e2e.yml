@@ -48,6 +48,7 @@ jobs:
           REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}
           REACT_APP_GIT_BRANCH: ${GIT_BRANCH}
           REACT_APP_GIT_SHA: ${GIT_SHA}
+          REACT_APP_PRINT_ENV_VAR: true
       - name: Print Env Vars
         run: |
           printenv
