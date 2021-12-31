@@ -1,5 +1,7 @@
 name: CLIENT E2E Deploy and test
 
+## Build and deploy to test server
+
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
@@ -24,7 +26,7 @@ jobs:
       - name: Print environment variables
         run: |
           echo "GIT_SHA=${GIT_SHA}"     
-          echo "REACT_APP_GITHUB_REDIRECT_URI_E2E=${secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E"      
+          echo "REACT_APP_GITHUB_REDIRECT_URI_E2E=${secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E}"      
           echo "REACT_APP_FF_FUNCTION_APP_KEY_E2E=${secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}"               
       - name: Build And Deploy
         id: builddeploy
@@ -46,7 +48,6 @@ jobs:
           REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
           REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY}}
           REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}
-          REACT_APP_GIT_BRANCH: ${GIT_BRANCH}
           REACT_APP_GIT_SHA: ${GIT_SHA}
           REACT_APP_PRINT_ENV_VAR: true
       - name: Print Env Vars
