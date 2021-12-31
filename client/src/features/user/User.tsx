@@ -1,5 +1,5 @@
 import TableProperties from "../../Components/TableProperties";
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../Redux/hooks';
 import {
   selectUser,
 } from './userSlice';

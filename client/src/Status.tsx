@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react';
 import TableProperties from "./Components/TableProperties";
 import { requestStatusFromApi } from './Utilties/status';
-import { useAppSelector } from './app/hooks';
+import { useAppSelector } from './Redux/hooks';
 import {
     selectEnvironment,
 } from './features/environment/environmentSlice';

@@ -1,9 +1,9 @@
 import { createSlice, } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { RootState } from '../../Redux/store';
 import { Environment } from './environmentModel';
 
 
-const initialState = (): Environment => {
+export const initialState = (): Environment => {
 
     // 'production' or anything else
     const isProduction:boolean = (process.env.NODE_ENV && (process.env.NODE_ENV.toLowerCase().includes('prod')))
@@ -21,15 +21,22 @@ const initialState = (): Environment => {
     // Required
     const gitHubState = process.env.REACT_APP_GITHUB_STATE;
 
-    // Required
+    // Feature Flag
+    const ffAzureFunctionHostKey = (process.env.REACT_APP_FF_FUNCTION_APP_KEY && process.env.REACT_APP_FF_FUNCTION_APP_KEY.toLowerCase()==='true') ? true : false;
+
+    // Feature Flag value: Required
     const azureFunctionHostKey = (process.env.REACT_APP_FUNCTION_APP_KEY) ? process.env.REACT_APP_FUNCTION_APP_KEY : "";
 
+    if(ffAzureFunctionHostKey && (!azureFunctionHostKey || azureFunctionHostKey.length===0)){
+        throw new Error("State: expect function host key but not find one");
+    }
+
     if(!isProduction && !gitHubRedirectUri){
-        throw new Error("State: expect development redirect but didn't find one");
+        throw new Error("State: expect development redirect but not find one");
     }
 
     if(!gitHubClientId || !gitHubState){
-        throw new Error("State: didn't find required GitHub app values");
+        throw new Error("State: not find required GitHub app values");
     }
 
     /*
@@ -49,7 +56,8 @@ const initialState = (): Environment => {
         gitHubRedirectUri, 
         gitHubClientId,
         gitHubState,
-        azureFunctionHostKey
+        azureFunctionHostKey,
+        ffAzureFunctionHostKey
     }
 
 }
