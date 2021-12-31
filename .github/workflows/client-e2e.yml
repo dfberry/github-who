@@ -26,8 +26,8 @@ jobs:
       - name: Print environment variables
         run: |
           echo "GIT_SHA=${GIT_SHA}"     
-          echo "REACT_APP_GITHUB_REDIRECT_URI_E2E=${secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E}"      
-          echo "REACT_APP_FF_FUNCTION_APP_KEY_E2E=${secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}"               
+          echo "REACT_APP_GITHUB_REDIRECT_URI_E2E=${{secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E}}"      
+          echo "REACT_APP_FF_FUNCTION_APP_KEY_E2E=${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}"               
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
