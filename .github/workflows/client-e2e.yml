@@ -1,11 +1,10 @@
 name: CLIENT E2E Deploy and test
 
 on:
-  push:
-    branches:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
+
 
 jobs:
   build_and_deploy_job:
