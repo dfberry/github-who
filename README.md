@@ -1,6 +1,11 @@
 # github-who
 
-# GitHub oauth app
+## Apps
+
+* create-react-app (TS) on Node.js 16
+* Azure Function (TS) on Node.js 14
+
+## GitHub oauth app
 
 * Create 1 app for live app & live redirect URL
     * Create secret
