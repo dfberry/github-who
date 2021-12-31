@@ -1,7 +1,7 @@
 import React from 'react';
 import AppButton from './Components/Button'
 import {getUriForOauthLogin} from './Utilties/github'
-import { useAppSelector } from './app/hooks';
+import { useAppSelector } from './Redux/hooks';
 import {
     selectEnvironment,
   } from './features/environment/environmentSlice';

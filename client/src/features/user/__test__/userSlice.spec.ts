@@ -1,7 +1,8 @@
-import userReducer, { add,  initialState} from './userSlice';
-import { GitHubUser } from './userModel';
+import userReducer, { add,  initialState} from '../userSlice';
+import { GitHubUser } from '../userModel';
 
 describe('user reducer', () => {
+
   const filledState: GitHubUser = {
     user: { 
         login: "dfberry",
@@ -45,11 +46,11 @@ describe('user reducer', () => {
     status: 'unauthenticated',
     error: undefined
   };
-  it('should handle initial state', () => {
+  test('should handle initial state', () => {
     expect(userReducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });
 
-  it('should handle add - add user data', () => {
+  test('should handle add - add user data', () => {
     const actual = userReducer(initialState, add(filledState));
     expect(actual.user).toEqual(filledState.user);
   });

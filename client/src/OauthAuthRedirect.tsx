@@ -10,11 +10,10 @@ import React, { useEffect } from 'react';
 import { requestToken } from "./Utilties/github";
 import { useNavigate } from "react-router-dom";
 import { Loading } from './Components/Loading';
-import { useAppDispatch } from './app/hooks';
+import { useAppDispatch, useAppSelector } from './Redux/hooks';
 import {
     add
   } from './features/user/userSlice';
-import { useAppSelector } from './app/hooks';
 import {
     selectEnvironment,
 } from './features/environment/environmentSlice';
