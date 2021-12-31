@@ -62,3 +62,10 @@
 ## Current issues
 
 * SO: [playwright doesn't run in dev container](https://stackoverflow.com/questions/70500141/playwright-wont-run-in-vscode-dev-container-on-mac)
+
+## Pipeline management
+
+* Checkout out from main
+* Change, run local test (client, api, or e2e)
+* PR to main
+    * PR runs tests and automerges if possible
