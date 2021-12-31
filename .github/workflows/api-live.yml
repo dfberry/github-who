@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 env:
   AZURE_FUNCTIONAPP_NAME: github-who-api
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '16.x'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './api'  # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '14.x'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -32,10 +32,12 @@ jobs:
       run: |
         echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
         echo "GIT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-    - name: Use environment variables
+    - name: Print environment variables
       run: |
         echo "GIT_SHA=${GIT_SHA}"
-        echo "GIT_BRANCH=${GIT_BRANCH}"        
+        echo "GIT_BRANCH=${GIT_BRANCH}"   
+        echo "AZURE_FUNCTIONAPP_PACKAGE_PATH=${AZURE_FUNCTIONAPP_PACKAGE_PATH}" 
+        echo "AZURE_FUNCTIONAPP_NAME=${AZURE_FUNCTIONAPP_NAME}"      
     - name: 'Resolve Project Dependencies Using Npm'
       shell: bash
       run: |
