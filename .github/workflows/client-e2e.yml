@@ -5,7 +5,7 @@ name: CLIENT E2E Deploy & Playwright tests
 on:
   push:
     branches:
-      - dfberry/1231-playwright-auth-tes
+      - deploy-client-e2e
 
 jobs:
   build_and_deploy_job:
