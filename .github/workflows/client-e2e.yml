@@ -7,7 +7,6 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
 
-
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -25,7 +24,9 @@ jobs:
           echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
       - name: Print environment variables
         run: |
-          echo "GIT_SHA=${GIT_SHA}"                  
+          echo "GIT_SHA=${GIT_SHA}"
+          echo "REACT_APP_GITHUB_REDIRECT_URI=https://mango-mushroom-00bed2310.azurestaticapps.net/auth-redirect"    
+          echo "REACT_APP_GITHUB_OAUTH_CLIENT_ID=438cc26450f36a5730f2"              
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -40,14 +41,13 @@ jobs:
           app_build_command: "npm run build"
           ###### End of Repository/Build Configurations ######
         env: 
-          REACT_APP_GITHUB_OAUTH_CLIENT_ID: ${{secrets.REACT_APP_GITHUB_OAUTH_CLIENT_ID_E2E}}
-          REACT_APP_GITHUB_REDIRECT_URI: ${{secrets.REACT_APP_GITHUB_REDIRECT_URI_E2E}}
-          REACT_APP_GITHUB_STATE: ${{secrets.REACT_APP_GITHUB_STATE}}
-          REACT_APP_API_BASE_URL: ${{secrets.REACT_APP_API_BASE_URL}}
+          REACT_APP_GITHUB_REDIRECT_URI: https://mango-mushroom-00bed2310.azurestaticapps.net/auth-redirect
+          REACT_APP_GITHUB_OAUTH_CLIENT_ID: 438cc26450f36a5730f2
+          REACT_APP_GITHUB_STATE: 123
+          REACT_APP_PRINT_ENV_VAR: true
           REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY}}
           REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY_E2E}}
           REACT_APP_GIT_SHA: ${GIT_SHA}
-          REACT_APP_PRINT_ENV_VAR: true
       - name: Print Env Vars
         run: |
           printenv
