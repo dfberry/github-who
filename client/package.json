@@ -27,7 +27,7 @@
     "build-sha": "node ./scripts/build-commit.js",
     "start-dev": "npm run build-sha && npm run build && react-scripts start",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "printenv > ./public/var.txt && react-scripts build",
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "browse-local": "npx open http://localhost:3000",
