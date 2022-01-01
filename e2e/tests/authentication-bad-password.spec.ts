@@ -28,18 +28,14 @@ test('Authenticate, get profile', async ({ page }) => {
     // Press Tab
     await page.press('input[name="login"]', 'Tab');
     // Fill input[name="password"]
-    await page.fill('input[name="password"]', env.GITHUB_USER_PASSWORD);
+    await page.fill('input[name="password"]', '');
     // Click input:has-text("Sign in")
     await Promise.all([
       page.waitForNavigation(/*{ url: 'https://mango-mushroom-00bed2310.azurestaticapps.net/github-profile' }*/),
       page.click('input:has-text("Sign in")')
     ]);
+    expect(page.url()).toEqual('https://github.com/session');
 
-    // TBD: I don't trust this works
-    // Playwright issue: https://github.com/microsoft/playwright/issues/11126
-    const title = page.locator('.GitHubProfile');
-    await expect(title).toContainText('GitHub Profile');
-    //await expect(title).toEqual('george ezra');
 
     // ---------------------
     await context.close();

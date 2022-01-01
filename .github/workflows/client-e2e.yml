@@ -7,6 +7,10 @@ on:
     branches:
       - deploy-client-e2e
 
+env:
+  GITHUB_USER_NAME: dfberry1-test,
+  GITHUB_USER_PASSWORD: ${{ secrets.TEST_GITHUB_USER_PASSWORD }}
+
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
