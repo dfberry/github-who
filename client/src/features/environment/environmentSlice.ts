@@ -60,7 +60,9 @@ export const initialState = (): Environment => {
         ffAzureFunctionHostKey
     };
 
-    if(!!process.env.REACT_APP_PRINT_ENV_VAR){
+    console.log(`REACT_APP_PRINT_ENV_VAR=${process.env.REACT_APP_PRINT_ENV_VAR}`);
+
+    if(process.env.REACT_APP_PRINT_ENV_VAR?.toLowerCase()==='true'){
         console.log(JSON.stringify(envVar))
     }
 
