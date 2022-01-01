@@ -46,12 +46,12 @@ jobs:
           REACT_APP_GITHUB_STATE: 123
           REACT_APP_PRINT_ENV_VAR: true
           REACT_APP_FUNCTION_APP_KEY: ${{secrets.REACT_APP_TEST}}
-          REACT_APP_FF_FUNCTION_APP_KEY: ${{secrets.REACT_APP_FF_FUNCTION_APP_KEY}}
+          REACT_APP_FF_FUNCTION_APP_KEY: false
           REACT_APP_GIT_SHA: ${GIT_SHA}
       - name: Print Env Vars
         run: |
           printenv
-          
+
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest

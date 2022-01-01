@@ -10,6 +10,7 @@ export const initialState = (): Environment => {
         ? true
         : false;
     console.log(`isProduction ${process.env.NODE_ENV.toString()}`);
+    console.log(process.env.REACT_APP_GITHUB_ACTION);
 
     // empty redirect means SWA proxies to API
     // @ts-ignore
