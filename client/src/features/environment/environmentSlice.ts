@@ -10,6 +10,7 @@ export const initialState = (): Environment => {
         ? true
         : false;
     console.log(`isProduction ${process.env.NODE_ENV.toString()}`);
+    console.log(process.env.REACT_APP_GITHUB_ACTION);
 
     // empty redirect means SWA proxies to API
     // @ts-ignore
@@ -60,7 +61,11 @@ export const initialState = (): Environment => {
         ffAzureFunctionHostKey
     };
 
-    if(!!process.env.REACT_APP_PRINT_ENV_VAR){
+    console.log(`REACT_APP_GITHUB_ACTION=${process.env.REACT_APP_GITHUB_ACTION}`);
+    console.log(`REACT_APP_PRINT_ENV_VAR=${process.env.REACT_APP_PRINT_ENV_VAR}`);
+    console.log(`REACT_APP_GIT_SHA=${process.env.REACT_APP_GIT_SHA}`);
+
+    if(process.env.REACT_APP_PRINT_ENV_VAR?.toLowerCase()==='true'){
         console.log(JSON.stringify(envVar))
     }
 
