@@ -60,6 +60,7 @@ export const initialState = (): Environment => {
         ffAzureFunctionHostKey
     };
 
+    console.log(`REACT_APP_GITHUB_ACTION=${process.env.REACT_APP_GITHUB_ACTION}`);
     console.log(`REACT_APP_PRINT_ENV_VAR=${process.env.REACT_APP_PRINT_ENV_VAR}`);
     console.log(`REACT_APP_GIT_SHA=${process.env.REACT_APP_GIT_SHA}`);
 

@@ -41,6 +41,7 @@ jobs:
           app_build_command: "npm run build"
           ###### End of Repository/Build Configurations ######
         env: 
+          REACT_APP_GITHUB_ACTION: client-e2e.yml
           REACT_APP_GITHUB_REDIRECT_URI: https://mango-mushroom-00bed2310.azurestaticapps.net/auth-redirect
           REACT_APP_GITHUB_OAUTH_CLIENT_ID: 438cc26450f36a5730f2
           REACT_APP_GITHUB_STATE: 123
