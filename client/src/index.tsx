@@ -5,9 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './Redux/store';
 import { Provider } from 'react-redux';
+import { initializeIcons } from '@fluentui/react';
+initializeIcons(/* optional base url */);
 
-// Importing the Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode >

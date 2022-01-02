@@ -3,7 +3,9 @@
 ## Apps
 
 * create-react-app (TS) on Node.js 16
+    * Min 16 for cra
 * Azure Function (TS) on Node.js 14
+    * Min 14 for Azure fn resource
 
 ## GitHub oauth app
 
@@ -62,6 +64,21 @@
     * initial test to validate deployment to live server
 * github action on pr
     * run client tests
+* convert bootstrap ui framework to Microsoft Fluent ui framework
+    * package.json
+        * update create-react-app dependencies
+        * add fluent dependency
+        * remove bootstrap dependencies
+        * remove yarn lock b/c now using package-lock.json
+    * convert bootstrap from react components
+        * button    
+        * table -> detail list
+        * navigation bar -> stack (horizontal)
+        * container -> stack
+        * everything else -> div
+    * update parent components
+    * uses default fluent theme/colors
+    * updating react [requires node 16 minimum](https://github.com/facebook/create-react-app/issues/11792)
 * edit/refactor action
     * checkout new branch from main
     * change action to only run on pushes to that branch - while developing
@@ -88,6 +105,11 @@ Expected env configuration for local.settings.json (or fn configuration):
 ## Current issues
 
 * SO: [playwright doesn't run in dev container](https://stackoverflow.com/questions/70500141/playwright-wont-run-in-vscode-dev-container-on-mac)
+* React Fluent UI Jest - `unexpected token export`
+    * Fluent is in ES6 and create-react-app is in ES5
+    * Need to pull in individual components from fluent with lib-commonjs
+    * [Issue logged](https://github.com/microsoft/fluentui/issues/21145) on Fluent UI
+* create-react-app test files need to be in `__tests__` to be picked up
 
 ## Pipeline management
 

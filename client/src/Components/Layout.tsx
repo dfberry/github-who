@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import NavigationBar from './NavigationBar';
 import MainCenter from './MainCenter';
 type Props = {
@@ -9,10 +8,10 @@ type Props = {
 const Layout: React.FC<Props> = ({ title, children }) => {
     return (
         <>
-            <Container className="Layout">
+            <div className="Layout">
                 <NavigationBar title={title}></NavigationBar>
                 <MainCenter children={children}></MainCenter>
-            </Container>
+            </div>
         </>
     )
 }

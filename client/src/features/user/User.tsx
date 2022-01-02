@@ -1,4 +1,4 @@
-import TableProperties from "../../Components/TableProperties";
+import { DetailsListNameValuePairs } from "../../Components/DetailsListNameValuePairs";
 import { useAppSelector } from '../../Redux/hooks';
 import {
   selectUser,
@@ -18,9 +18,9 @@ export function User() {
   return (
     <div className="GitHubProfile">
       <h4>GitHub Profile</h4>
-        <TableProperties name="GitHub Profile" data={getUserProfile()}/>
+        <DetailsListNameValuePairs name="GitHub Profile" data={getUserProfile()}/>
         { !environment.isProduction && 
-          <TableProperties name="GitHub Auth Token" data={getUserToken()}/>
+          <DetailsListNameValuePairs name="GitHub Auth Token" data={getUserToken()}/>
         }
     </div>
   );
