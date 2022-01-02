@@ -1,8 +1,7 @@
 name: CLIENT LIVE Deploy
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
+  push:
     branches:
       - deploy-client
 
@@ -75,7 +74,7 @@ jobs:
       with:
         name: playwright-test-results
         path: test-results/  
-        
+
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
