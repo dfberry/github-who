@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from '@fluentui/react';
-import { DefaultPalette, Stack, IStackStyles, IStackTokens } from '@fluentui/react';
+import { DefaultPalette, Stack, IStackStyles, IStackTokens, Link } from '@fluentui/react';
 
 /*
 Fluent UI: Stack with horizontal gap between items

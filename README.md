@@ -105,6 +105,11 @@ Expected env configuration for local.settings.json (or fn configuration):
 ## Current issues
 
 * SO: [playwright doesn't run in dev container](https://stackoverflow.com/questions/70500141/playwright-wont-run-in-vscode-dev-container-on-mac)
+* React Fluent UI Jest - `unexpected token export`
+    * Fluent is in ES6 and create-react-app is in ES5
+    * Need to pull in individual components from fluent with lib-commonjs
+    * [Issue logged](https://github.com/microsoft/fluentui/issues/21145) on Fluent UI
+* create-react-app test files need to be in `__tests__` to be picked up
 
 ## Pipeline management
 

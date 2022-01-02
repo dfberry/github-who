@@ -1,6 +1,5 @@
 import React from 'react';
-import { Stack, IStackTokens } from '@fluentui/react';
-import { PrimaryButton } from '@fluentui/react/lib/Button';
+import { Stack, IStackTokens, PrimaryButton } from '@fluentui/react';
 
 export interface IButtonProps {
     // These are set based on the toggles shown above the examples (not needed in real code)

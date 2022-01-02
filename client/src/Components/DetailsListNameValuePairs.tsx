@@ -1,6 +1,6 @@
 import React from 'react';
-import { DetailsList} from '@fluentui/react/lib/DetailsList';
-import { mergeStyles } from '@fluentui/react/lib/Styling';
+import { DetailsList} from '@fluentui/react/lib-commonjs/DetailsList';
+import { mergeStyles } from '@fluentui/react/lib-commonjs/Styling';
 
 const detaillistChildClass = mergeStyles({
     display: 'block',

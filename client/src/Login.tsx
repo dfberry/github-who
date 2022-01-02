@@ -5,8 +5,7 @@ import { useAppSelector } from './Redux/hooks';
 import {
     selectEnvironment,
   } from './features/environment/environmentSlice';
-  import { Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/react/lib/Stack';
-  import { DefaultPalette } from '@fluentui/react/lib/Styling';
+  import { DefaultPalette, Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/react';
 
 type Props = {
     children?: React.ReactNode

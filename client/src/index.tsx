@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './Redux/store';
 import { Provider } from 'react-redux';
-import { initializeIcons } from '@fluentui/react/lib/Icons';
+import { initializeIcons } from '@fluentui/react';
 initializeIcons(/* optional base url */);
 
 
