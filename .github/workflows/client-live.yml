@@ -1,8 +1,7 @@
 name: CLIENT LIVE Deploy
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
+  push:
     branches:
       - deploy-client
 
@@ -50,7 +49,7 @@ jobs:
           REACT_APP_GIT_SHA: ${GIT_SHA}
       - name: Print Env Vars
         run: |
-          printenv
+          printenv  
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
