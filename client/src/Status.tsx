@@ -1,11 +1,10 @@
 import React, {useEffect, useState } from 'react';
-import TableProperties from "./Components/TableProperties";
 import { requestStatusFromApi } from './Utilties/status';
 import { useAppSelector } from './Redux/hooks';
 import {
     selectEnvironment,
 } from './features/environment/environmentSlice';
-  
+import { DetailsListNameValuePairs } from "./Components/DetailsListNameValuePairs";
 
 
 type Props = {
@@ -27,7 +26,7 @@ const Status: React.FC<Props> = ({ children }) => {
 
     return (
         <div className="Status">
-            <TableProperties name="Server Status" data={status}/>
+            <DetailsListNameValuePairs name="Server Status" data={status}/>
         </div>
     )
 }
