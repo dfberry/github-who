@@ -35,7 +35,7 @@ export const getEnvironment = () => {
 
   // Required in production
   const azureApplicationInsightsInstrumentationKey =
-    process.env.AZURE_APPLICATIONINSIGHTS_INSTRUMENTATION_KEY;
+    process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
 
   return {
     isProduction,

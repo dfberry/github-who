@@ -16,7 +16,6 @@ export const logInit = (log) => {
   ) {
     production = environment.isProduction;
     throw new Error("can't find instrumentation key");
-    return;
   }
 
   appInsights
