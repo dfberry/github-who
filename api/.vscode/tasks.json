@@ -26,6 +26,13 @@
 			"command": "npm prune --production",
 			"dependsOn": "npm build (functions)",
 			"problemMatcher": []
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "npm: start",
+			"detail": "npm-run-all --parallel start:host watch"
 		}
 	]
 }
