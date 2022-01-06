@@ -11,7 +11,6 @@ export const getEnvironment = () => {
     process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase().includes('prod')
       ? true
       : false;
-  console.log(`isProduction = ${isProduction.toString()}`);
 
   // empty redirect means SWA proxies to API
   const gitHubRedirectUri: string = isProduction

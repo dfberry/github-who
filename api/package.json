@@ -9,7 +9,7 @@
     "prestart": "npm run build && func extensions install",
     "start:host": "func start",
     "start": "npm-run-all --parallel start:host watch",
-    "test": "rm -rf ./dist && npm run build && jest --verbose"
+    "test": "rm -rf ./dist && npm run build && jest --coverage --verbose"
   },
   "dependencies": {
     "@types/jest": "^27.0.3",

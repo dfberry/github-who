@@ -4,7 +4,7 @@ import { trace } from './logging';
 
 export const requestUser = async (token: string): Promise<any> => {
   try {
-    if (!token) throw new Error('Required token is empty');
+    if (!token || token.length<3) throw new Error('Required token is empty');
 
     const response = await fetch(`https://api.github.com/user`, {
       headers: {

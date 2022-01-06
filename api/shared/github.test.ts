@@ -5,11 +5,15 @@ jest.mock('cross-fetch');
 const { Response } = jest.requireActual('cross-fetch');
 
 describe('GitHub APIs', () => {
+
+    beforeEach(async () => {
+        jest.resetAllMocks();
+      });
+
     it('throws error when token is missing', async () => {
 
         // setup
         const expectedRepos = require("../json/user-repos_pat_1.json");
-        const environmentValues = require('../local.settings.json').Values;
         const mock = (fetch as unknown) as jest.Mock;
         mock.mockResolvedValue(new Response(JSON.stringify(expectedRepos)));
         const personalAccessToken = undefined;
