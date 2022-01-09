@@ -1,27 +1,14 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
-import { logInit, trace } from '../shared/logging';
-
-import * as appInsights from 'applicationinsights';
-
-appInsights
-  .setup(process.env.AZURE_APPLICATIONINSIGHTS_INSTRUMENTATION_KEY)
-  .setAutoDependencyCorrelation(true)
-  .setAutoCollectRequests(true)
-  .setAutoCollectPerformance(true, true)
-  .setAutoCollectExceptions(true)
-  .setAutoCollectDependencies(true)
-  .setAutoCollectConsole(true)
-  .setUseDiskRetryCaching(true)
-  .setSendLiveMetrics(false)
-  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
-  .start();
+import { getEnvironment  } from '../shared/environment';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
   try {
-    context.log('/api/status');
+
+    const environment = getEnvironment(context.log);
+    environment.appSettings.log('*** Azure Function: /api/status');
 
     context.res = {
       // status: 200, /* Defaults to 200 */

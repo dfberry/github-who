@@ -1,12 +1,38 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": "Attach to Node Functions",
-            "type": "node",
-            "request": "attach",
-            "port": 9229,
-            "preLaunchTask": "func: host start"
-        }
+    {
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/app.js",
+        "request": "launch",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "pwa-node"
+    },
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Jest Tests",
+        "disableOptimisticBPs": true,
+        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "args": [
+            "-i"
+        ],
+        "internalConsoleOptions": "openOnSessionStart"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Jest current file",
+        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "args": [
+          "--verbose",
+          "-i",
+          "--no-cache"
+        ],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+      },
     ]
 }

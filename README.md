@@ -85,6 +85,10 @@
     * when action is fixed, change/revert to the origin `on` push and prs
     * merge back into regular pipeline
     * notes: run doesn't retain context from run to next item in yaml using run
+* api
+    * change logging to have prefix text
+    * in Azure portal, query with prefix text, `traces | where message contains "***dfberry"`
+    * TBD: live has 1 app insights, e2e has another
 
 ## Azure Function
 

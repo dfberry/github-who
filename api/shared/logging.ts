@@ -1,26 +1,24 @@
 import * as appInsights from 'applicationinsights';
-import { getEnvironment } from './environment';
-
-let setup = false;
 let client = undefined;
-let production = undefined;
+let contextLog = undefined;
+let logPrefix = undefined;
 
-export const logInit = (log) => {
-  const environment = getEnvironment();
-  log(JSON.stringify(environment));
+export const logInit = (logKey: string, log, messagePrefix?: string) => {
 
   // Optional - so check if key is set
   if (
-    !environment.azureApplicationInsightsInstrumentationKey ||
-    environment.azureApplicationInsightsInstrumentationKey.length === 0
+    !logKey ||
+    logKey.length === 0
   ) {
-    production = environment.isProduction;
     throw new Error("can't find instrumentation key");
-    return;
+  }
+
+  if(messagePrefix){
+    logPrefix=messagePrefix;
   }
 
   appInsights
-    .setup(environment.azureApplicationInsightsInstrumentationKey)
+    .setup(logKey)
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true, true)
@@ -32,30 +30,26 @@ export const logInit = (log) => {
     .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
     .start();
 
-  // Set cloud role - hope this shows up in logs
-  /*
-    let cloudRole = "Production";
-    if(!environment.isProduction){
-        cloudRole = "Development"
-    } 
-    
-    appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = "cloudRole";
-    */
   client = appInsights.defaultClient;
-  setup = true;
 
   client.trackTrace({
-    message: `App Insights ready to use`
+    message: `${logPrefix}:App Insights ready to use`
   });
-};
 
-// `any` allows for object or string
-export const trace = (message: any): void => {
-  if (!setup || !client) {
-    throw new Error('Application Insights trace: not configured correctly');
+  if(log) {
+    contextLog = log;
   }
 
-  client.trackTrace({
-    message: JSON.stringify(message)
-  });
+  return logMessage;
 };
+export const logMessage = (message: string):void=> {
+  if(contextLog){
+    contextLog(`${logPrefix}:${message}`);
+  }
+  if (client){
+    client.trackTrace({
+      message: `${logPrefix}:${message}`
+    });
+  }
+}
+
