@@ -3,3 +3,4 @@ dist
 .DS_Store
 local.settings.json
 sample.dat
+test-local-data

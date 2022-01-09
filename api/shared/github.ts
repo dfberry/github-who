@@ -1,6 +1,4 @@
 import fetch from 'cross-fetch';
-import { getEnvironment } from './environment';
-import { trace } from './logging';
 
 export const requestUser = async (token: string): Promise<any> => {
   try {
@@ -26,8 +24,7 @@ export const requestUser = async (token: string): Promise<any> => {
     throw err;
   }
 };
-export const requestToken = async (code: string): Promise<any> => {
-  const environment = getEnvironment();
+export const requestToken = async (environment: any, code: string): Promise<any> => {
 
   const body = {
     client_id: environment.gitHubClientId,
@@ -46,8 +43,8 @@ export const requestToken = async (code: string): Promise<any> => {
     }
   });
 };
-export const requestTokenFromGitHub = async (code: string): Promise<any> => {
-  const tokenObj = await requestToken(code);
+export const requestTokenFromGitHub = async (environment: any, code: string): Promise<any> => {
+  const tokenObj = await requestToken(environment, code);
 
   // Request to return data of a user that has been authenticated
   //const userObj = await requestUser(tokenObj.access_token);

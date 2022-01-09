@@ -1,23 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import fetch from 'cross-fetch';
-//import { getEnvironment  } from '../shared/environment';
-let appInsights = require('applicationinsights');
-
-// Get key from env APPINSIGHTS_INSTRUMENTATIONKEY
-appInsights
-  .setup()
-  .setAutoDependencyCorrelation(true)
-  .setAutoCollectRequests(true)
-  .setAutoCollectPerformance(true, true)
-  .setAutoCollectExceptions(true)
-  .setAutoCollectDependencies(true)
-  .setAutoCollectConsole(true, true)
-  .setUseDiskRetryCaching(true)
-  .setSendLiveMetrics(false)
-  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
-  .start();
-
-let client = appInsights.defaultClient;
+import { getEnvironment  } from '../shared/environment';
 
 // `code` param is reserved for Azure Function auth access
 const httpTrigger: AzureFunction = async function (
@@ -25,10 +8,12 @@ const httpTrigger: AzureFunction = async function (
   req: HttpRequest
 ): Promise<void> {
   try {
-    client.trackTrace({
+
+    const environment = getEnvironment(context.log);
+
+    environment.appSettings.log({
       message: 'client.track APILOG: api/github/oauth/access_token'
     });
-    context.log('context.log APILOG: api/github/oauth/access_token');
     const githubcode =
       req.query.githubcode || (req.body && req.body.githubcode);
 

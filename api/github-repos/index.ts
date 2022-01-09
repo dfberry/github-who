@@ -1,14 +1,13 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { logInit, trace } from '../shared/logging';
 import { userRepos } from '../shared/github';
 import { responseFactory, FunctionResponse } from '../shared/response';
-
+import { getEnvironment  } from '../shared/environment';
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<FunctionResponse> {
 
     try {
 
-        logInit(context.log);
-        trace('*** Azure Function: api/github/repo');
+        const environment = getEnvironment(context.log);
+        environment.appSettings.log('*** Azure Function: api/github/repo');
 
         const githubToken =
             req.headers?.Authorization?.replace('token ','').trim() || "";

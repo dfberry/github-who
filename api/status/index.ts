@@ -1,12 +1,14 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
-import { logInit, trace } from '../shared/logging';
+import { getEnvironment  } from '../shared/environment';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
   try {
-    context.log('/api/status');
+
+    const environment = getEnvironment(context.log);
+    environment.appSettings.log('*** Azure Function: /api/status');
 
     context.res = {
       // status: 200, /* Defaults to 200 */

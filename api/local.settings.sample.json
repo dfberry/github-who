@@ -6,10 +6,14 @@
     "NODE_ENV": "development",
     "GITHUB_OAUTH_CLIENT_ID":"",
     "GITHUB_OAUTH_CLIENT_SECRET":"",
-    "GITHUB_OAUTH_REDIRECT_URI":"",
+    "GITHUB_OAUTH_REDIRECT_URI":"http://localhost:3000/auth-redirect",
     "APPINSIGHTS_INSTRUMENTATIONKEY": "",
     "APP_FEATURE_FLAG_LOGGING": true,
-    "GITHUB_TEST_PERSON_ACCESS_TOKEN":""
+    "GITHUB_TEST_PERSON_ACCESS_TOKEN":"",
+    "TEST_STORAGE_CONNECTIONSTRING": "",
+    "TEST_STORAGE_CONTAINER": "githubwho-testfiles",
+    "TEST_LOCAL_FILES": "./test-local-data",
+    "LOG_MESSAGE_PREFIX":"GitHub-Who-Function-App"
   },
     "Host": {
     "LocalHttpPort": 7071,
