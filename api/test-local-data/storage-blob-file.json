@@ -1,0 +1,42 @@
+{
+    "name": "user-repos_pat_1.json",
+    "properties": {
+        "createdOn": "2022-01-09T13:55:38.000Z",
+        "lastModified": "2022-01-09T13:55:38.000Z",
+        "etag": "0x8D9D377B7552F9E",
+        "contentLength": 183360,
+        "contentType": "application/json",
+        "contentEncoding": "",
+        "contentLanguage": "",
+        "contentMD5": {
+            "type": "Buffer",
+            "data": [
+                255,
+                236,
+                62,
+                116,
+                225,
+                55,
+                249,
+                143,
+                214,
+                231,
+                203,
+                152,
+                26,
+                1,
+                74,
+                231
+            ]
+        },
+        "contentDisposition": "",
+        "cacheControl": "",
+        "blobType": "BlockBlob",
+        "leaseStatus": "unlocked",
+        "leaseState": "available",
+        "serverEncrypted": true,
+        "Content-CRC64": ""
+    },
+    "objectReplicationMetadata": "",
+    "OrMetadata": ""
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { DefaultPalette, Stack, IStackStyles, IStackTokens, Link } from '@fluentui/react';
-
+import { DefaultPalette, Stack, IStackStyles, IStackTokens, Link} from '@fluentui/react';
+import { useNavigate } from 'react-router-dom';
 /*
 Fluent UI: Stack with horizontal gap between items
 */
@@ -23,10 +23,13 @@ const horizontalGapStackTokens: IStackTokens = {
 
 
 const NavigationBar: React.FC<Props> = ({ title }) => {
+  const navigate = useNavigate()
+
     return (
         <Stack horizontal disableShrink styles={stackStyles} tokens={horizontalGapStackTokens}>
-            <span><Link href="/">Home</Link></span>
-            <span><Link href="/login">Login</Link></span>
+            <span><Link onClick={() => navigate('/')}>Home</Link></span>
+            <span><Link onClick={() => navigate('/login')}>Login</Link></span>
+            <span><Link onClick={() => navigate('/status')}>Status</Link></span>
         </Stack>
     )
 }
