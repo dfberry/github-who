@@ -1,0 +1,42 @@
+{
+    "name": "test-subfolder/DEPLOY.md",
+    "properties": {
+        "createdOn": "2022-01-09T14:02:26.000Z",
+        "lastModified": "2022-01-09T14:02:26.000Z",
+        "etag": "0x8D9D378AA99BFC6",
+        "contentLength": 15,
+        "contentType": "text/plain",
+        "contentEncoding": "",
+        "contentLanguage": "",
+        "contentMD5": {
+            "type": "Buffer",
+            "data": [
+                87,
+                67,
+                242,
+                254,
+                97,
+                66,
+                248,
+                192,
+                17,
+                42,
+                124,
+                224,
+                101,
+                45,
+                141,
+                207
+            ]
+        },
+        "contentDisposition": "",
+        "cacheControl": "",
+        "blobType": "BlockBlob",
+        "leaseStatus": "unlocked",
+        "leaseState": "available",
+        "serverEncrypted": true,
+        "Content-CRC64": ""
+    },
+    "objectReplicationMetadata": "",
+    "OrMetadata": ""
+}
